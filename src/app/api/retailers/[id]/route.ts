@@ -14,6 +14,7 @@ export async function GET(
             .eq("id", id)
             .single();
 
+
         if (!retailer) {
             return NextResponse.json(
                 { message: "Retailer not found" },
