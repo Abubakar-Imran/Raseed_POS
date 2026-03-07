@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Retailer {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  passwordHash  String
+  createdAt     DateTime  @default(now())
+
+  branches         Branch[]
+  receipts         Receipt[]
+  loyaltyRules     LoyaltyRule[]
+  customerLoyalty  CustomerLoyalty[]
+  discounts        Discount[]
+  sustainability   SustainabilityStats?
+}
+
+model Branch {
+  id          String   @id @default(uuid())
+  retailerId  String
+  name        String
+  location    String
+  createdAt   DateTime @default(now())
+
+  retailer    Retailer  @relation(fields: [retailerId], references: [id])
+  receipts    Receipt[]
+}
+
+model Customer {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  name        String?
+  createdAt   DateTime @default(now())
+
+  receipts         Receipt[]
+  customerLoyalty  CustomerLoyalty[]
+  discounts        Discount[]
+  feedbacks        Feedback[]
+}
+
+model Receipt {
+  id            String   @id @default(uuid())
+  retailerId    String
+  branchId      String
+  customerId    String
+  billNumber    String
+  totalAmount   Float
+  paymentMethod String
+  createdAt     DateTime @default(now())
+
+  retailer   Retailer      @relation(fields: [retailerId], references: [id])
+  branch     Branch        @relation(fields: [branchId], references: [id])
+  customer   Customer      @relation(fields: [customerId], references: [id])
+  items      ReceiptItem[]
+  feedbacks  Feedback[]
+}
+
+model ReceiptItem {
+  id         String @id @default(uuid())
+  receiptId  String
+  itemName   String
+  quantity   Int
+  price      Float
+
+  receipt  Receipt @relation(fields: [receiptId], references: [id], onDelete: Cascade)
+}
+
+model LoyaltyRule {
+  id                 String   @id @default(uuid())
+  retailerId         String
+  ruleType           String   // e.g., 'RECEIPT_COUNT', 'TOTAL_SPENT'
+  threshold          Int
+  discountPercentage Float
+  validDays          Int
+  createdAt          DateTime @default(now())
+
+  retailer  Retailer @relation(fields: [retailerId], references: [id])
+}
+
+model CustomerLoyalty {
+  id           String   @id @default(uuid())
+  customerId   String
+  retailerId   String
+  receiptCount Int      @default(0)
+  totalSpent   Float    @default(0)
+  lastVisit    DateTime @default(now())
+
+  customer Customer @relation(fields: [customerId], references: [id])
+  retailer Retailer @relation(fields: [retailerId], references: [id])
+
+  @@unique([customerId, retailerId])
+}
+
+model Discount {
+  id                 String   @id @default(uuid())
+  customerId         String
+  retailerId         String
+  discountPercentage Float
+  status             String   // e.g., 'AVAILABLE', 'USED', 'EXPIRED'
+  expiresAt          DateTime
+  createdAt          DateTime @default(now())
+
+  customer Customer @relation(fields: [customerId], references: [id])
+  retailer Retailer @relation(fields: [retailerId], references: [id])
+}
+
+model Feedback {
+  id         String   @id @default(uuid())
+  receiptId  String
+  customerId String
+  rating     Int
+  comment    String?
+  createdAt  DateTime @default(now())
+
+  receipt  Receipt  @relation(fields: [receiptId], references: [id])
+  customer Customer @relation(fields: [customerId], references: [id])
+}
+
+model SustainabilityStats {
+  id                   String   @id @default(uuid())
+  retailerId           String   @unique
+  paperSavedCount      Int      @default(0)
+  estimatedCarbonSaved Float    @default(0)
+  updatedAt            DateTime @updatedAt
+
+  retailer  Retailer @relation(fields: [retailerId], references: [id])
+}
