@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 
 // GET /api/receipts/retailers/[retailerId] — Get receipts for a retailer
 export async function GET(
@@ -8,16 +8,13 @@ export async function GET(
 ) {
     try {
         const { retailerId } = await params;
-        const receipts = await prisma.receipt.findMany({
-            where: { retailerId },
-            include: {
-                items: true,
-                customer: { select: { email: true } },
-                branch: { select: { name: true } },
-            },
-            orderBy: { createdAt: "desc" },
-        });
-        return NextResponse.json(receipts);
+        const { data: receipts } = await supabase
+            .from("Receipt")
+            .select("*, ReceiptItem(*), Customer(email), Branch(name)")
+            .eq("retailerId", retailerId)
+            .order("createdAt", { ascending: false });
+
+        return NextResponse.json(receipts ?? []);
     } catch (error) {
         console.error("Get Retailer Receipts Error:", error);
         return NextResponse.json(

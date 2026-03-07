@@ -1,18 +1,24 @@
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 
 export const evaluateLoyaltyForCustomer = async (
     customerId: string,
     retailerId: string
 ) => {
-    const stats = await prisma.customerLoyalty.findUnique({
-        where: { customerId_retailerId: { customerId, retailerId } },
-    });
+    const { data: stats } = await supabase
+        .from("CustomerLoyalty")
+        .select("*")
+        .eq("customerId", customerId)
+        .eq("retailerId", retailerId)
+        .single();
 
     if (!stats) return null;
 
-    const rules = await prisma.loyaltyRule.findMany({
-        where: { retailerId },
-    });
+    const { data: rules } = await supabase
+        .from("LoyaltyRule")
+        .select("*")
+        .eq("retailerId", retailerId);
+
+    if (!rules) return [];
 
     const newDiscounts = [];
 
@@ -34,16 +40,20 @@ export const evaluateLoyaltyForCustomer = async (
             const expiresAt = new Date();
             expiresAt.setDate(expiresAt.getDate() + rule.validDays);
 
-            const discount = await prisma.discount.create({
-                data: {
+            const { data: discount } = await supabase
+                .from("Discount")
+                .insert({
+                    id: crypto.randomUUID(),
                     customerId,
                     retailerId,
                     discountPercentage: rule.discountPercentage,
                     status: "AVAILABLE",
-                    expiresAt,
-                },
-            });
-            newDiscounts.push(discount);
+                    expiresAt: expiresAt.toISOString(),
+                })
+                .select()
+                .single();
+
+            if (discount) newDiscounts.push(discount);
         }
     }
 

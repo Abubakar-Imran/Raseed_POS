@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 import bcrypt from "bcrypt";
 
 // POST /api/auth/register — Retailer registration
@@ -7,7 +7,12 @@ export async function POST(request: NextRequest) {
     try {
         const { name, email, password } = await request.json();
 
-        const existing = await prisma.retailer.findUnique({ where: { email } });
+        const { data: existing } = await supabase
+            .from("Retailer")
+            .select("id")
+            .eq("email", email)
+            .single();
+
         if (existing) {
             return NextResponse.json(
                 { message: "Retailer with this email already exists." },
@@ -16,16 +21,25 @@ export async function POST(request: NextRequest) {
         }
 
         const passwordHash = await bcrypt.hash(password, 10);
-        const retailer = await prisma.retailer.create({
-            data: { name, email, passwordHash },
-        });
+        const { data: retailer, error } = await supabase
+            .from("Retailer")
+            .insert({ id: crypto.randomUUID(), name, email, passwordHash })
+            .select()
+            .single();
 
-        await prisma.branch.create({
-            data: {
-                retailerId: retailer.id,
-                name: "Main Branch",
-                location: "HQ",
-            },
+        if (error || !retailer) {
+            console.error("Register insert error:", error);
+            return NextResponse.json(
+                { message: "Failed to create retailer", detail: error?.message },
+                { status: 500 }
+            );
+        }
+
+        await supabase.from("Branch").insert({
+            id: crypto.randomUUID(),
+            retailerId: retailer.id,
+            name: "Main Branch",
+            location: "HQ",
         });
 
         return NextResponse.json({ message: "Retailer registered successfully" });

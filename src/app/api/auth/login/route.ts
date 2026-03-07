@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 import bcrypt from "bcrypt";
 import { signToken } from "@/lib/auth";
 
@@ -8,7 +8,12 @@ export async function POST(request: NextRequest) {
     try {
         const { email, password } = await request.json();
 
-        const retailer = await prisma.retailer.findUnique({ where: { email } });
+        const { data: retailer } = await supabase
+            .from("Retailer")
+            .select("*")
+            .eq("email", email)
+            .single();
+
         if (!retailer) {
             return NextResponse.json(
                 { message: "Invalid credentials" },

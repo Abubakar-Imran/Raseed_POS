@@ -1,23 +1,28 @@
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 
 export const getRetailerSustainabilityStats = async (retailerId: string) => {
     if (!retailerId || retailerId === "null") return null;
 
-    let stats = await prisma.sustainabilityStats.findUnique({
-        where: { retailerId },
-    });
+    const { data: stats } = await supabase
+        .from("SustainabilityStats")
+        .select("*")
+        .eq("retailerId", retailerId)
+        .single();
 
-    if (!stats) {
-        stats = await prisma.sustainabilityStats.create({
-            data: {
-                retailerId,
-                paperSavedCount: 0,
-                estimatedCarbonSaved: 0,
-            },
-        });
-    }
+    if (stats) return stats;
 
-    return stats;
+    const { data: newStats } = await supabase
+        .from("SustainabilityStats")
+        .insert({
+            id: crypto.randomUUID(),
+            retailerId,
+            paperSavedCount: 0,
+            estimatedCarbonSaved: 0,
+        })
+        .select()
+        .single();
+
+    return newStats;
 };
 
 export const incrementStats = async (
@@ -26,18 +31,35 @@ export const incrementStats = async (
 ) => {
     const estimatedCarbonPerReceipt = 0.005; // 5g per receipt
 
-    return prisma.sustainabilityStats.upsert({
-        where: { retailerId },
-        create: {
-            retailerId,
-            paperSavedCount: paperCount,
-            estimatedCarbonSaved: paperCount * estimatedCarbonPerReceipt,
-        },
-        update: {
-            paperSavedCount: { increment: paperCount },
-            estimatedCarbonSaved: {
-                increment: paperCount * estimatedCarbonPerReceipt,
-            },
-        },
-    });
+    const { data: existing } = await supabase
+        .from("SustainabilityStats")
+        .select("*")
+        .eq("retailerId", retailerId)
+        .single();
+
+    if (existing) {
+        const { data } = await supabase
+            .from("SustainabilityStats")
+            .update({
+                paperSavedCount: existing.paperSavedCount + paperCount,
+                estimatedCarbonSaved:
+                    existing.estimatedCarbonSaved + paperCount * estimatedCarbonPerReceipt,
+            })
+            .eq("retailerId", retailerId)
+            .select()
+            .single();
+        return data;
+    } else {
+        const { data } = await supabase
+            .from("SustainabilityStats")
+            .insert({
+                id: crypto.randomUUID(),
+                retailerId,
+                paperSavedCount: paperCount,
+                estimatedCarbonSaved: paperCount * estimatedCarbonPerReceipt,
+            })
+            .select()
+            .single();
+        return data;
+    }
 };

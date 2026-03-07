@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 
 // GET /api/receipts/[id] — Get a single receipt by ID
 export async function GET(
@@ -8,14 +8,12 @@ export async function GET(
 ) {
     try {
         const { id } = await params;
-        const receipt = await prisma.receipt.findUnique({
-            where: { id },
-            include: {
-                items: true,
-                retailer: true,
-                branch: true,
-            },
-        });
+        const { data: receipt } = await supabase
+            .from("Receipt")
+            .select("*, ReceiptItem(*), Retailer(id, name, email), Branch(id, name, location)")
+            .eq("id", id)
+            .single();
+
         if (!receipt) {
             return NextResponse.json(
                 { message: "Receipt not found" },

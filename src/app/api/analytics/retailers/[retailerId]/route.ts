@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 
 // GET /api/analytics/retailers/[retailerId] — Get dashboard analytics
 export async function GET(
@@ -9,32 +9,51 @@ export async function GET(
     try {
         const { retailerId } = await params;
 
-        const totalReceipts = await prisma.receipt.count({
-            where: { retailerId },
-        });
+        // Total receipt count
+        const { count: totalReceipts } = await supabase
+            .from("Receipt")
+            .select("*", { count: "exact", head: true })
+            .eq("retailerId", retailerId);
 
-        const revenueAggr = await prisma.receipt.aggregate({
-            where: { retailerId },
-            _sum: { totalAmount: true },
-        });
+        // Total revenue
+        const { data: revenueRows } = await supabase
+            .from("Receipt")
+            .select("totalAmount")
+            .eq("retailerId", retailerId);
+        const totalRevenue =
+            revenueRows?.reduce((sum, r) => sum + (r.totalAmount ?? 0), 0) ?? 0;
 
-        const repeatCustomersCount = await prisma.customerLoyalty.count({
-            where: {
-                retailerId,
-                receiptCount: { gt: 1 },
-            },
-        });
+        // Repeat customers count
+        const { count: repeatCustomers } = await supabase
+            .from("CustomerLoyalty")
+            .select("*", { count: "exact", head: true })
+            .eq("retailerId", retailerId)
+            .gt("receiptCount", 1);
 
-        const feedbackAggr = await prisma.feedback.aggregate({
-            where: { receipt: { retailerId } },
-            _avg: { rating: true },
-        });
+        // Average feedback rating
+        const { data: receiptRows } = await supabase
+            .from("Receipt")
+            .select("id")
+            .eq("retailerId", retailerId);
+        const receiptIds = receiptRows?.map((r) => r.id) ?? [];
+
+        let averageRating = 0;
+        if (receiptIds.length > 0) {
+            const { data: feedbackRows } = await supabase
+                .from("Feedback")
+                .select("rating")
+                .in("receiptId", receiptIds);
+            if (feedbackRows && feedbackRows.length > 0) {
+                averageRating =
+                    feedbackRows.reduce((sum, f) => sum + f.rating, 0) / feedbackRows.length;
+            }
+        }
 
         return NextResponse.json({
-            totalReceipts,
-            totalRevenue: revenueAggr._sum.totalAmount || 0,
-            repeatCustomers: repeatCustomersCount,
-            averageRating: feedbackAggr._avg.rating || 0,
+            totalReceipts: totalReceipts ?? 0,
+            totalRevenue,
+            repeatCustomers: repeatCustomers ?? 0,
+            averageRating,
         });
     } catch (error) {
         console.error("Get Dashboard Stats Error:", error);

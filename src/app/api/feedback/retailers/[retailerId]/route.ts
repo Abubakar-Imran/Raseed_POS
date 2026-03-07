@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 
 // GET /api/feedback/retailers/[retailerId] — Get feedback for retailer
 export async function GET(
@@ -12,18 +12,26 @@ export async function GET(
         const skip = parseInt(searchParams.get("skip") || "0");
         const take = parseInt(searchParams.get("take") || "50");
 
-        const feedbacks = await prisma.feedback.findMany({
-            where: { receipt: { retailerId } },
-            include: {
-                customer: { select: { email: true } },
-                receipt: { select: { billNumber: true, totalAmount: true } },
-            },
-            orderBy: { createdAt: "desc" },
-            skip,
-            take,
-        });
+        // Fetch receipt IDs belonging to this retailer
+        const { data: receiptRows } = await supabase
+            .from("Receipt")
+            .select("id")
+            .eq("retailerId", retailerId);
 
-        return NextResponse.json(feedbacks);
+        const receiptIds = receiptRows?.map((r) => r.id) ?? [];
+
+        if (receiptIds.length === 0) {
+            return NextResponse.json([]);
+        }
+
+        const { data: feedbacks } = await supabase
+            .from("Feedback")
+            .select("*, Customer(email), Receipt(billNumber, totalAmount)")
+            .in("receiptId", receiptIds)
+            .order("createdAt", { ascending: false })
+            .range(skip, skip + take - 1);
+
+        return NextResponse.json(feedbacks ?? []);
     } catch (error) {
         console.error("Get Retailer Feedback Error:", error);
         return NextResponse.json(

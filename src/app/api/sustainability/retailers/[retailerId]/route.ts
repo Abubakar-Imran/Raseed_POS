@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRetailerSustainabilityStats } from "@/lib/services/sustainabilityService";
 
-// GET /api/sustainability/retailers/[retailerId]
+// sustainability route uses the service function, no direct supabase import needed
 export async function GET(
     request: NextRequest,
     { params }: { params: Promise<{ retailerId: string }> }

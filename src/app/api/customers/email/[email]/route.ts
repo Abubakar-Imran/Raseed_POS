@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 
 // GET /api/customers/email/[email] — Get customer by email
 export async function GET(
@@ -10,14 +10,11 @@ export async function GET(
         const { email } = await params;
         const decodedEmail = decodeURIComponent(email);
 
-        const customer = await prisma.customer.findUnique({
-            where: { email: decodedEmail },
-            include: {
-                receipts: true,
-                customerLoyalty: true,
-                discounts: true,
-            },
-        });
+        const { data: customer } = await supabase
+            .from("Customer")
+            .select("*, Receipt(*), CustomerLoyalty(*), Discount(*)")
+            .eq("email", decodedEmail)
+            .single();
 
         if (!customer) {
             return NextResponse.json(

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 
 // GET /api/discounts/customers/[customerId] — Get available discounts for customer
 export async function GET(
@@ -8,14 +8,14 @@ export async function GET(
 ) {
     try {
         const { customerId } = await params;
-        const discounts = await prisma.discount.findMany({
-            where: { customerId, status: "AVAILABLE" },
-            include: {
-                retailer: { select: { name: true } },
-            },
-            orderBy: { createdAt: "desc" },
-        });
-        return NextResponse.json(discounts);
+        const { data: discounts } = await supabase
+            .from("Discount")
+            .select("*, Retailer(name)")
+            .eq("customerId", customerId)
+            .eq("status", "AVAILABLE")
+            .order("createdAt", { ascending: false });
+
+        return NextResponse.json(discounts ?? []);
     } catch (error) {
         console.error("Get Customer Discounts Error:", error);
         return NextResponse.json(

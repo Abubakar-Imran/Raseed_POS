@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase, getSupabaseServerClient } from "@/lib/supabase-server";
 import { incrementStats } from "@/lib/services/sustainabilityService";
 import { evaluateLoyaltyForCustomer } from "@/lib/services/loyaltyService";
-import { getSupabaseServerClient } from "@/lib/supabase";
 
 // POST /api/pos/receipts — POS system sends a new receipt
 export async function POST(request: NextRequest) {
@@ -17,58 +16,100 @@ export async function POST(request: NextRequest) {
             items,
         } = await request.json();
 
-        let customer = await prisma.customer.findUnique({
-            where: { email: customer_email },
-        });
+        // Find or create customer
+        const { data: existingCustomer } = await supabase
+            .from("Customer")
+            .select("*")
+            .eq("email", customer_email)
+            .single();
 
+        let customer = existingCustomer;
         if (!customer) {
-            customer = await prisma.customer.create({
-                data: { email: customer_email },
-            });
+            const { data: newCustomer } = await supabase
+                .from("Customer")
+                .insert({ id: crypto.randomUUID(), email: customer_email })
+                .select()
+                .single();
+            customer = newCustomer;
         }
 
-        const receipt = await prisma.receipt.create({
-            data: {
+        // Create receipt
+        const { data: receipt, error: receiptError } = await supabase
+            .from("Receipt")
+            .insert({
+                id: crypto.randomUUID(),
                 retailerId: retailer_id,
                 branchId: branch_id,
                 customerId: customer.id,
                 billNumber: bill_number,
                 totalAmount: total_amount,
                 paymentMethod: payment_method || "CASH",
-                items: {
-                    create: items.map((item: any) => ({
-                        itemName: item.name,
-                        quantity: item.quantity,
-                        price: item.price,
-                    })),
-                },
-            },
-            include: {
-                items: true,
-                retailer: { select: { name: true } },
-                branch: { select: { name: true } },
-            },
-        });
+            })
+            .select("*, Retailer(name), Branch(name)")
+            .single();
 
-        const loyalty = await prisma.customerLoyalty.upsert({
-            where: {
-                customerId_retailerId: {
+        if (receiptError || !receipt) {
+            console.error("Receipt insert error:", receiptError);
+            throw new Error("Failed to create receipt: " + receiptError?.message);
+        }
+
+        // Create receipt items
+        if (items && items.length > 0) {
+            await supabase.from("ReceiptItem").insert(
+                items.map((item: any) => ({
+                    id: crypto.randomUUID(),
+                    receiptId: receipt.id,
+                    itemName: item.name,
+                    quantity: item.quantity,
+                    price: item.price,
+                }))
+            );
+        }
+
+        // Fetch items for response
+        const { data: receiptItems } = await supabase
+            .from("ReceiptItem")
+            .select("*")
+            .eq("receiptId", receipt.id);
+
+        const fullReceipt = { ...receipt, items: receiptItems ?? [] };
+
+        // Upsert customer loyalty
+        const { data: existingLoyalty } = await supabase
+            .from("CustomerLoyalty")
+            .select("*")
+            .eq("customerId", customer.id)
+            .eq("retailerId", retailer_id)
+            .single();
+
+        let loyalty;
+        if (existingLoyalty) {
+            const { data } = await supabase
+                .from("CustomerLoyalty")
+                .update({
+                    receiptCount: existingLoyalty.receiptCount + 1,
+                    totalSpent: existingLoyalty.totalSpent + total_amount,
+                    lastVisit: new Date().toISOString(),
+                })
+                .eq("id", existingLoyalty.id)
+                .select()
+                .single();
+            loyalty = data;
+        } else {
+            const { data } = await supabase
+                .from("CustomerLoyalty")
+                .insert({
+                    id: crypto.randomUUID(),
                     customerId: customer.id,
                     retailerId: retailer_id,
-                },
-            },
-            create: {
-                customerId: customer.id,
-                retailerId: retailer_id,
-                receiptCount: 1,
-                totalSpent: total_amount,
-            },
-            update: {
-                receiptCount: { increment: 1 },
-                totalSpent: { increment: total_amount },
-                lastVisit: new Date(),
-            },
-        });
+                    receiptCount: 1,
+                    totalSpent: total_amount,
+                    lastVisit: new Date().toISOString(),
+                })
+                .select()
+                .single();
+            loyalty = data;
+        }
 
         await incrementStats(retailer_id, 1);
 
@@ -79,12 +120,12 @@ export async function POST(request: NextRequest) {
 
         // Emit real-time notification via Supabase Realtime
         try {
-            const supabase = getSupabaseServerClient();
-            const channel = supabase.channel(`customer_${customer.id}`);
+            const realtimeClient = getSupabaseServerClient();
+            const channel = realtimeClient.channel(`customer_${customer.id}`);
             await channel.send({
                 type: "broadcast",
                 event: "newReceipt",
-                payload: { receipt, discountsUnlocked },
+                payload: { receipt: fullReceipt, discountsUnlocked },
             });
         } catch (realtimeErr: any) {
             console.warn("Supabase realtime broadcast failed:", realtimeErr.message);

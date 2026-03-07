@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 import { signToken } from "@/lib/auth";
 import { otpStore } from "../send-otp/route";
 
@@ -28,9 +28,27 @@ export async function POST(request: NextRequest) {
 
         otpStore.delete(email);
 
-        let customer = await prisma.customer.findUnique({ where: { email } });
+        const { data: existingCustomer } = await supabase
+            .from("Customer")
+            .select("*")
+            .eq("email", email)
+            .single();
+
+        let customer = existingCustomer;
         if (!customer) {
-            customer = await prisma.customer.create({ data: { email } });
+            const { data: newCustomer, error: insertErr } = await supabase
+                .from("Customer")
+                .insert({ id: crypto.randomUUID(), email })
+                .select()
+                .single();
+            if (insertErr || !newCustomer) {
+                console.error("Customer insert error:", insertErr);
+                return NextResponse.json(
+                    { message: "Failed to create customer", detail: insertErr?.message },
+                    { status: 500 }
+                );
+            }
+            customer = newCustomer;
         }
 
         const access_token = signToken({

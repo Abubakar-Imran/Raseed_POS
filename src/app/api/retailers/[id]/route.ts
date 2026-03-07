@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { supabase } from "@/lib/supabase-server";
 
 // GET /api/retailers/[id] — Get retailer by ID
 export async function GET(
@@ -8,10 +8,11 @@ export async function GET(
 ) {
     try {
         const { id } = await params;
-        const retailer = await prisma.retailer.findUnique({
-            where: { id },
-            select: { id: true, name: true, email: true, createdAt: true },
-        });
+        const { data: retailer } = await supabase
+            .from("Retailer")
+            .select("id, name, email, createdAt")
+            .eq("id", id)
+            .single();
 
         if (!retailer) {
             return NextResponse.json(
