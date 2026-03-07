@@ -28,7 +28,7 @@ export default function CustomerDashboardLayout({ children }: { children: React.
             const email = localStorage.getItem('customer_email');
             if (email) {
                 const channel = supabase.channel(`customer_notifications`)
-                    .on('broadcast', { event: 'newReceipt' }, (payload) => {
+                    .on('broadcast', { event: 'newReceipt' }, (payload: any) => {
                         console.log('New Receipt Received:', payload);
                         queryClient.invalidateQueries({ queryKey: ['customer-receipts'] });
                         queryClient.invalidateQueries({ queryKey: ['customer-loyalty'] });

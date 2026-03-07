@@ -18,7 +18,7 @@ export async function GET(
             .select("id")
             .eq("retailerId", retailerId);
 
-        const receiptIds = receiptRows?.map((r) => r.id) ?? [];
+        const receiptIds = receiptRows?.map((r: any) => r.id) ?? [];
 
         if (receiptIds.length === 0) {
             return NextResponse.json([]);

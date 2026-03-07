@@ -21,7 +21,7 @@ export async function GET(
             .select("totalAmount")
             .eq("retailerId", retailerId);
         const totalRevenue =
-            revenueRows?.reduce((sum, r) => sum + (r.totalAmount ?? 0), 0) ?? 0;
+            revenueRows?.reduce((sum: number, r: any) => sum + (r.totalAmount ?? 0), 0) ?? 0;
 
         // Repeat customers count
         const { count: repeatCustomers } = await supabase
@@ -35,7 +35,7 @@ export async function GET(
             .from("Receipt")
             .select("id")
             .eq("retailerId", retailerId);
-        const receiptIds = receiptRows?.map((r) => r.id) ?? [];
+        const receiptIds = receiptRows?.map((r: any) => r.id) ?? [];
 
         let averageRating = 0;
         if (receiptIds.length > 0) {
@@ -45,7 +45,7 @@ export async function GET(
                 .in("receiptId", receiptIds);
             if (feedbackRows && feedbackRows.length > 0) {
                 averageRating =
-                    feedbackRows.reduce((sum, f) => sum + f.rating, 0) / feedbackRows.length;
+                    feedbackRows.reduce((sum: number, f: any) => sum + f.rating, 0) / feedbackRows.length;
             }
         }
 

@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
 // Client-side Supabase client (for realtime subscriptions in the browser)
-export function getSupabaseBrowserClient() {
+export function getSupabaseBrowserClient(): any {
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
     const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
@@ -13,7 +13,7 @@ export function getSupabaseBrowserClient() {
 }
 
 // Server-side Supabase client (for broadcasting from API routes)
-export function getSupabaseServerClient() {
+export function getSupabaseServerClient(): any {
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
