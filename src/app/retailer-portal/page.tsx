@@ -97,7 +97,7 @@ export default function RetailerPortalPage() {
 
             <div className="flex min-h-[calc(100vh-64px)] lg:min-h-screen">
                 {/* Left Side: Branding — desktop only */}
-                <div className="hidden lg:flex w-2/5 xl:w-1/2 bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white flex-col justify-between p-12 relative overflow-hidden flex-shrink-0">
+                <div className="hidden lg:flex w-2/5 xl:w-1/2 bg-linear-to-br from-slate-800 via-slate-700 to-slate-900 text-white flex-col justify-between p-12 relative overflow-hidden shrink-0">
                     <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-white opacity-5 blur-3xl" />
                     <div className="absolute bottom-10 left-10 -ml-20 -mb-20 w-80 h-80 rounded-full bg-slate-400 opacity-10 blur-3xl" />
 
@@ -108,7 +108,7 @@ export default function RetailerPortalPage() {
                     <div className="relative z-10 max-w-xl">
                         <h1 className="text-5xl xl:text-6xl font-black tracking-tight leading-tight mb-6">
                             Retailer <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-slate-100">
+                            <span className="text-transparent bg-clip-text bg-linear-to-r from-slate-300 to-slate-100">
                                 Partner Portal
                             </span>
                         </h1>

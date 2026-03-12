@@ -63,7 +63,7 @@ function LoginForm() {
     return (
         <div className="flex min-h-screen w-full bg-white">
             {/* Left Side: Branding */}
-            <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-green-600 via-teal-700 to-green-900 text-white flex-col justify-between p-12 relative overflow-hidden">
+            <div className="hidden lg:flex w-1/2 bg-linear-to-br from-green-600 via-teal-700 to-green-900 text-white flex-col justify-between p-12 relative overflow-hidden">
                 <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-white opacity-5 mix-blend-overlay blur-3xl animate-pulse" />
                 <div className="absolute bottom-10 left-10 -ml-20 -mb-20 w-80 h-80 rounded-full bg-teal-400 opacity-10 mix-blend-overlay blur-3xl" />
 
@@ -74,7 +74,7 @@ function LoginForm() {
                 <div className="relative z-10 max-w-xl">
                     <h1 className="text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6">
                         The Future of <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-teal-100">
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-green-200 to-teal-100">
                             Digital Receipts
                         </span>
                     </h1>
