@@ -63,9 +63,9 @@ function LoginForm() {
     return (
         <div className="flex min-h-screen w-full bg-white">
             {/* Left Side: Branding */}
-            <div className="hidden lg:flex w-1/2 bg-linear-to-br from-green-600 via-teal-700 to-green-900 text-white flex-col justify-between p-12 relative overflow-hidden">
+            <div className="hidden lg:flex w-1/2 bg-linear-to-br from-[#0F4716] via-[#165d1e] to-[#0a3310] text-white flex-col justify-between p-12 relative overflow-hidden">
                 <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-white opacity-5 mix-blend-overlay blur-3xl animate-pulse" />
-                <div className="absolute bottom-10 left-10 -ml-20 -mb-20 w-80 h-80 rounded-full bg-teal-400 opacity-10 mix-blend-overlay blur-3xl" />
+                <div className="absolute bottom-10 left-10 -ml-20 -mb-20 w-80 h-80 rounded-full bg-green-400 opacity-10 mix-blend-overlay blur-3xl" />
 
                 <div className="relative z-10 flex items-center gap-3">
                     <span className="text-2xl font-black tracking-widest text-white uppercase opacity-90">Raseed</span>
@@ -74,7 +74,7 @@ function LoginForm() {
                 <div className="relative z-10 max-w-xl">
                     <h1 className="text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6">
                         The Future of <br />
-                        <span className="text-transparent bg-clip-text bg-linear-to-r from-green-200 to-teal-100">
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-green-200 to-green-100">
                             Digital Receipts
                         </span>
                     </h1>
@@ -91,7 +91,7 @@ function LoginForm() {
             {/* Right Side: Auth Form */}
             <div className="flex w-full lg:w-1/2 items-center justify-center p-6 sm:p-12 xl:p-24 bg-gray-50 lg:bg-white relative">
                 <div className="lg:hidden absolute top-8 left-8">
-                    <span className="text-2xl font-black tracking-widest text-green-800 uppercase">Raseed</span>
+                    <span className="text-2xl font-black tracking-widest text-[#0F4716] uppercase">Raseed</span>
                 </div>
 
                 <div className="w-full max-w-md space-y-8 bg-white lg:bg-transparent p-8 lg:p-0 rounded-3xl lg:rounded-none shadow-xl lg:shadow-none border lg:border-none border-gray-100 relative z-10">
@@ -117,7 +117,7 @@ function LoginForm() {
                                         placeholder="hello@example.com"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="h-12 px-4 text-base bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-green-500 rounded-xl transition-all"
+                                        className="h-12 px-4 text-base bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#0F4716] rounded-xl transition-all"
                                         required
                                     />
                                 </div>
@@ -127,7 +127,7 @@ function LoginForm() {
                                     </div>
                                 )}
                                 <Button
-                                    className="w-full h-12 text-base font-bold bg-green-600 hover:bg-green-700 text-white rounded-xl shadow-md hover:shadow-lg transition-all"
+                                    className="w-full h-12 text-base font-bold bg-[#0F4716] hover:bg-[#0a3310] text-white rounded-xl shadow-md hover:shadow-lg transition-all"
                                     type="submit"
                                     disabled={isLoading}
                                 >
@@ -144,7 +144,7 @@ function LoginForm() {
                                         placeholder="0000"
                                         value={otp}
                                         onChange={(e) => setOtp(e.target.value)}
-                                        className="h-16 text-center text-4xl tracking-[0.5em] font-mono font-bold bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-green-500 rounded-2xl transition-all placeholder:opacity-40"
+                                        className="h-16 text-center text-4xl tracking-[0.5em] font-mono font-bold bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#0F4716] rounded-2xl transition-all placeholder:opacity-40"
                                         required
                                         maxLength={6}
                                     />
@@ -155,7 +155,7 @@ function LoginForm() {
                                     </div>
                                 )}
                                 <Button
-                                    className="w-full h-12 text-base font-bold bg-green-600 hover:bg-green-700 text-white rounded-xl shadow-md hover:shadow-lg transition-all"
+                                    className="w-full h-12 text-base font-bold bg-[#0F4716] hover:bg-[#0a3310] text-white rounded-xl shadow-md hover:shadow-lg transition-all"
                                     type="submit"
                                     disabled={isLoading}
                                 >
@@ -165,7 +165,7 @@ function LoginForm() {
                                     <button
                                         type="button"
                                         onClick={() => { setStep('EMAIL'); setOtp(''); setError(''); }}
-                                        className="text-sm font-semibold text-gray-500 hover:text-green-600 transition-colors"
+                                        className="text-sm font-semibold text-gray-500 hover:text-[#0F4716] transition-colors"
                                     >
                                         ← Change email address
                                     </button>

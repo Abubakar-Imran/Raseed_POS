@@ -88,10 +88,10 @@ function FeedbackForm() {
                     <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-gray-900">Leave Feedback</h2>
                     <p className="text-gray-500 text-sm mt-1">Help stores improve by sharing your experience.</p>
                 </div>
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white shadow-sm">
+                <Card className="border-green-200 bg-linear-to-br from-green-50 to-white shadow-sm">
                     <CardContent className="p-8 flex flex-col items-center text-center gap-4">
-                        <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center">
-                            <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+                        <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+                            <CheckCircle2 className="w-8 h-8 text-[#0F4716]" />
                         </div>
                         <div>
                             <h3 className="text-lg font-bold text-gray-900">Thank you for your feedback!</h3>
@@ -113,14 +113,14 @@ function FeedbackForm() {
                     <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-gray-900">Leave Feedback</h2>
                     <p className="text-gray-500 text-sm mt-1">Help stores improve by sharing your experience.</p>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-violet-700 font-medium self-start sm:self-auto bg-violet-50 border border-violet-200 rounded-full px-3 py-1">
+                <div className="flex items-center gap-2 text-sm text-[#0F4716] font-medium self-start sm:self-auto bg-green-50 border border-green-200 rounded-full px-3 py-1">
                     <MessageSquarePlus size={14} />
                     {safeReceipts.length} receipt{safeReceipts.length === 1 ? '' : 's'} available
                 </div>
             </div>
 
             <Card className="border-gray-200 shadow-sm overflow-hidden">
-                <div className="h-1 bg-linear-to-r from-violet-400 via-fuchsia-400 to-pink-400" />
+                <div className="h-1 bg-linear-to-r from-[#0F4716] via-[#165d1e] to-[#0a3310]" />
 
                 <CardContent className="p-5 sm:p-6">
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -133,7 +133,7 @@ function FeedbackForm() {
                             <select
                                 value={selectedReceiptId}
                                 onChange={(e) => { setSelectedReceiptId(e.target.value); setValidationError(''); }}
-                                className="w-full h-10 px-3 py-2 border border-gray-200 rounded-md bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 transition-shadow"
+                                className="w-full h-10 px-3 py-2 border border-gray-200 rounded-md bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#0F4716]/50 transition-shadow"
                                 required
                             >
                                 <option value="" disabled>Choose a recent purchase…</option>
@@ -186,7 +186,7 @@ function FeedbackForm() {
                                 placeholder="Tell us about your experience…"
                                 value={comment}
                                 onChange={(e) => setComment(e.target.value)}
-                                className="min-h-28 resize-none focus-visible:ring-violet-400"
+                                className="min-h-28 resize-none focus-visible:ring-[#0F4716]/50"
                             />
                         </div>
 
@@ -208,7 +208,7 @@ function FeedbackForm() {
 
                         <Button
                             type="submit"
-                            className="w-full bg-violet-600 hover:bg-violet-700 focus-visible:ring-violet-400 font-semibold"
+                            className="w-full bg-[#0F4716] hover:bg-[#0a3310] focus-visible:ring-[#0F4716]/50 font-semibold"
                             disabled={submitFeedbackMutation.isPending}
                         >
                             {submitFeedbackMutation.isPending ? 'Submitting…' : 'Submit Feedback'}
@@ -218,10 +218,10 @@ function FeedbackForm() {
             </Card>
 
             {/* Info callout */}
-            <Card className="border-cyan-200 bg-linear-to-r from-cyan-50 to-sky-50 shadow-sm">
+            <Card className="border-green-200 bg-linear-to-r from-green-50 to-green-100/50 shadow-sm">
                 <CardContent className="p-4">
-                    <p className="text-sm font-semibold text-cyan-900">Your opinion makes a difference.</p>
-                    <CardDescription className="mt-1 text-xs text-cyan-700">
+                    <p className="text-sm font-semibold text-[#0F4716]">Your opinion makes a difference.</p>
+                    <CardDescription className="mt-1 text-xs text-[#0F4716]/70">
                         Every review directly helps partnered retailers improve their service and your future experience.
                     </CardDescription>
                 </CardContent>

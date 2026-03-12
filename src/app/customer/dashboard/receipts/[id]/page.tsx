@@ -109,11 +109,11 @@ export default function ReceiptDetailPage() {
                     <Card className="bg-green-50 border-green-100 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
                         <CardHeader className="pb-2 text-center">
                             <div className="mx-auto bg-green-100 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-3">
-                                <Leaf className="h-7 w-7 text-green-600" />
+                                <Leaf className="h-7 w-7 text-[#0F4716]" />
                             </div>
-                            <CardTitle className="text-green-900 font-bold">Paper Saved!</CardTitle>
+                            <CardTitle className="text-[#0F4716] font-bold">Paper Saved!</CardTitle>
                         </CardHeader>
-                        <CardContent className="text-center text-sm text-green-700 font-medium">
+                        <CardContent className="text-center text-sm text-[#0F4716] font-medium">
                             By accepting this digital receipt, you saved a 10-inch strip of thermal paper and prevented 5g of CO2 emissions.
                         </CardContent>
                     </Card>

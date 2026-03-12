@@ -72,12 +72,12 @@ export default function CustomerDashboardLayout({ children }: { children: React.
             <div className="flex flex-col min-h-screen bg-slate-50">
                 <header className="bg-white border-b px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 z-50 shadow-sm">
                     <div className="flex items-center gap-5">
-                        <h1 className="text-xl sm:text-2xl font-extrabold text-green-700 tracking-tight">Raseed</h1>
+                        <h1 className="text-xl sm:text-2xl font-extrabold text-[#0F4716] tracking-tight">Raseed</h1>
                         <nav className="hidden md:flex items-center gap-2">
                             {navItems.map((item) => {
                                 const isActive = pathname === item.href;
                                 return (
-                                    <Link key={item.name} href={item.href} className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${isActive ? 'bg-green-100 text-green-800 font-semibold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}>
+                                    <Link key={item.name} href={item.href} className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${isActive ? 'bg-[#0F4716]/10 text-[#0F4716] font-semibold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}>
                                         <item.icon size={18} />
                                         <span>{item.name}</span>
                                     </Link>
@@ -111,7 +111,7 @@ export default function CustomerDashboardLayout({ children }: { children: React.
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${isActive ? 'bg-green-100 text-green-800 font-semibold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
+                                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${isActive ? 'bg-[#0F4716]/10 text-[#0F4716] font-semibold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
                                 >
                                     <Icon size={18} />
                                     <span>{item.name}</span>

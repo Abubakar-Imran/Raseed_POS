@@ -198,7 +198,7 @@ export default function RetailerProfilePage() {
                     </div>
                 )}
                 {success && (
-                    <div className="text-sm font-medium text-green-700 bg-green-50 p-3 rounded-lg border border-green-200">
+                    <div className="text-sm font-medium text-[#0F4716] bg-green-50 p-3 rounded-lg border border-green-200">
                         {success}
                     </div>
                 )}

@@ -100,7 +100,7 @@ export default function LoyaltyPage() {
                                     <li key={rule.id} className="p-4 border rounded-md flex items-start justify-between gap-4">
                                         <div>
                                             <p className="font-medium">Every {rule.threshold} Receipts</p>
-                                            <p className="text-sm text-green-600 font-semibold mt-1">Reward: {rule.discountPercentage}% off next purchase</p>
+                                            <p className="text-sm text-[#0F4716] font-semibold mt-1">Reward: {rule.discountPercentage}% off next purchase</p>
                                             <p className="text-xs text-gray-500 mt-1">Valid for {rule.validDays} days</p>
                                         </div>
                                         <Button

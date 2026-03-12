@@ -80,7 +80,7 @@ export default function CustomerStoreReceiptsPage() {
                                 <CardContent className="p-4 flex flex-col h-full justify-between gap-3">
                                     <div className="flex items-start justify-between w-full">
                                         <div className="flex items-center gap-3 min-w-0">
-                                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-50 rounded-full flex items-center justify-center text-green-600 group-hover:bg-green-100 group-hover:text-green-700 transition-colors shadow-sm shrink-0">
+                                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-50 rounded-full flex items-center justify-center text-[#0F4716] group-hover:bg-green-100 group-hover:text-[#0a3310] transition-colors shadow-sm shrink-0">
                                                 <ReceiptIcon size={18} className="sm:w-5 sm:h-5" />
                                             </div>
                                             <div className="min-w-0">
@@ -95,7 +95,7 @@ export default function CustomerStoreReceiptsPage() {
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <span className="font-black text-lg sm:text-xl text-gray-900">Rs. {(receipt.totalAmount ?? 0).toFixed(2)}</span>
-                                            <div className="w-6 h-6 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-green-50 group-hover:text-green-600 transition-colors">
+                                            <div className="w-6 h-6 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-green-50 group-hover:text-[#0F4716] transition-colors">
                                                 <ChevronRight size={14} strokeWidth={3} />
                                             </div>
                                         </div>

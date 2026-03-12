@@ -58,47 +58,47 @@ export default function CustomerDashboardHome() {
                 <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-gray-900">
                     Welcome back{customerData?.name ? `, ${customerData.name}` : '!'}
                 </h2>
-                <Link href="/customer/dashboard/receipts" className="text-sm text-green-700 font-medium hover:underline inline-flex items-center shrink-0 self-start">
+                <Link href="/customer/dashboard/receipts" className="text-sm text-[#0F4716] font-medium hover:underline inline-flex items-center shrink-0 self-start">
                     All Receipts <ArrowRight size={14} className="ml-1" />
                 </Link>
             </div>
             <p className="text-gray-500 text-sm">Here&apos;s your spending and rewards overview at a glance.</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                <Card className="border-green-200 bg-linear-to-br from-green-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     <CardHeader className="pb-1">
-                        <CardTitle className="text-xs sm:text-sm font-medium text-emerald-800 flex items-center gap-2">
+                        <CardTitle className="text-xs sm:text-sm font-medium text-[#0F4716] flex items-center gap-2">
                             <Receipt size={16} /> Total Receipts
                         </CardTitle>
                     </CardHeader>
-                    <CardContent><div className="text-2xl font-black text-emerald-700">{safeReceipts.length}</div></CardContent>
+                    <CardContent><div className="text-2xl font-black text-[#0F4716]">{safeReceipts.length}</div></CardContent>
                 </Card>
 
-                <Card className="border-teal-200 bg-linear-to-br from-teal-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                <Card className="border-green-300 bg-linear-to-br from-green-100 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     <CardHeader className="pb-1">
-                        <CardTitle className="text-xs sm:text-sm font-medium text-teal-800 flex items-center gap-2">
+                        <CardTitle className="text-xs sm:text-sm font-medium text-[#0F4716] flex items-center gap-2">
                             <Wallet size={16} /> This Month Spend
                         </CardTitle>
                     </CardHeader>
-                    <CardContent><div className="text-xl sm:text-2xl font-black text-teal-700 wrap-break-word">Rs. {monthSpend.toFixed(2)}</div></CardContent>
+                    <CardContent><div className="text-xl sm:text-2xl font-black text-[#0F4716] wrap-break-word">Rs. {monthSpend.toFixed(2)}</div></CardContent>
                 </Card>
 
-                <Card className="border-violet-200 bg-linear-to-br from-violet-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                <Card className="border-amber-200 bg-linear-to-br from-amber-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     <CardHeader className="pb-1">
-                        <CardTitle className="text-xs sm:text-sm font-medium text-violet-800 flex items-center gap-2">
+                        <CardTitle className="text-xs sm:text-sm font-medium text-amber-800 flex items-center gap-2">
                             <Award size={16} /> Active Rewards
                         </CardTitle>
                     </CardHeader>
-                    <CardContent><div className="text-2xl font-black text-violet-700">{Array.isArray(rewards) ? rewards.length : 0}</div></CardContent>
+                    <CardContent><div className="text-2xl font-black text-amber-700">{Array.isArray(rewards) ? rewards.length : 0}</div></CardContent>
                 </Card>
 
                 <Card className="border-green-200 bg-linear-to-br from-green-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     <CardHeader className="pb-1">
-                        <CardTitle className="text-xs sm:text-sm font-medium text-green-800 flex items-center gap-2">
+                        <CardTitle className="text-xs sm:text-sm font-medium text-[#0F4716] flex items-center gap-2">
                             <Leaf size={16} /> Trees Saved
                         </CardTitle>
                     </CardHeader>
-                    <CardContent><div className="text-2xl font-black text-green-700">{(safeReceipts.length * 0.01).toFixed(2)}</div></CardContent>
+                    <CardContent><div className="text-2xl font-black text-[#0F4716]">{(safeReceipts.length * 0.01).toFixed(2)}</div></CardContent>
                 </Card>
             </div>
 
@@ -128,11 +128,11 @@ export default function CustomerDashboardHome() {
                 </Card>
 
                 <div className="space-y-3">
-                    <Card className="border-cyan-200 bg-linear-to-r from-cyan-50 to-sky-50 shadow-sm">
+                    <Card className="border-green-200 bg-linear-to-r from-green-50 to-green-100/50 shadow-sm">
                         <CardContent className="p-4">
-                            <p className="text-sm font-semibold text-cyan-900">You shop with {retailerCount} store{retailerCount === 1 ? '' : 's'}</p>
-                            <p className="text-xs text-cyan-700 mt-1">Track your limits and spending from the Budget tab.</p>
-                            <Link href="/customer/dashboard/budget" className="inline-flex mt-3 text-sm font-semibold text-cyan-700 hover:text-cyan-900 underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 rounded-sm">
+                            <p className="text-sm font-semibold text-[#0F4716]">You shop with {retailerCount} store{retailerCount === 1 ? '' : 's'}</p>
+                            <p className="text-xs text-[#0F4716]/70 mt-1">Track your limits and spending from the Budget tab.</p>
+                            <Link href="/customer/dashboard/budget" className="inline-flex mt-3 text-sm font-semibold text-[#0F4716] hover:text-[#0a3310] underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4716]/30 rounded-sm">
                                 Open Budget Tracker
                             </Link>
                         </CardContent>
@@ -157,7 +157,7 @@ export default function CustomerDashboardHome() {
                             <Card className="hover:bg-gray-50 transition-all duration-200 shadow-sm cursor-pointer border-green-100/50 hover:shadow-md active:scale-[0.99]">
                                 <CardContent className="flex items-center justify-between p-3">
                                     <div className="flex items-center gap-2.5">
-                                        <div className="p-2 bg-green-100 rounded-lg text-green-600"><Leaf size={18} /></div>
+                                        <div className="p-2 bg-green-100 rounded-lg text-[#0F4716]"><Leaf size={18} /></div>
                                         <div>
                                             <h4 className="font-semibold text-gray-900 text-sm">Sustainability Impact</h4>
                                             <p className="text-xs text-gray-500">See your contribution</p>

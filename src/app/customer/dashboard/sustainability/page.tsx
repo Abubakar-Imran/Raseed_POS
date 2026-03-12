@@ -71,62 +71,62 @@ export default function CustomerSustainabilityPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
-                <Card className="border-emerald-200 bg-linear-to-br from-emerald-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                <Card className="border-green-200 bg-linear-to-br from-green-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     <CardHeader className="pb-1">
-                        <CardTitle className="text-sm font-medium text-emerald-800 flex items-center gap-2">
+                        <CardTitle className="text-sm font-medium text-[#0F4716] flex items-center gap-2">
                             <Leaf size={16} /> Thermal Paper Saved
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-black text-emerald-700">{totalReceipts}</div>
-                        <p className="text-xs text-emerald-700/80 mt-1">Digital receipts</p>
+                        <div className="text-2xl font-black text-[#0F4716]">{totalReceipts}</div>
+                        <p className="text-xs text-[#0F4716]/70 mt-1">Digital receipts</p>
                     </CardContent>
                 </Card>
 
-                <Card className="border-teal-200 bg-linear-to-br from-teal-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                <Card className="border-green-300 bg-linear-to-br from-green-100 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     <CardHeader className="pb-1">
-                        <CardTitle className="text-sm font-medium text-teal-800 flex items-center gap-2">
+                        <CardTitle className="text-sm font-medium text-[#0F4716] flex items-center gap-2">
                             <TreePine size={16} /> Carbon Reduced
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-black text-teal-700">{estimatedCarbonSaved.toFixed(3)}</div>
-                        <p className="text-xs text-teal-700/80 mt-1">kg CO2e estimated</p>
+                        <div className="text-2xl font-black text-[#0F4716]">{estimatedCarbonSaved.toFixed(3)}</div>
+                        <p className="text-xs text-[#0F4716]/70 mt-1">kg CO2e estimated</p>
                     </CardContent>
                 </Card>
 
-                <Card className="border-lime-200 bg-linear-to-br from-lime-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                <Card className="border-green-200 bg-linear-to-br from-green-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     <CardHeader className="pb-1">
-                        <CardTitle className="text-sm font-medium text-lime-800 flex items-center gap-2">
+                        <CardTitle className="text-sm font-medium text-[#0F4716] flex items-center gap-2">
                             <Recycle size={16} /> Trees Equivalent
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-black text-lime-700">{treesEquivalent.toFixed(2)}</div>
-                        <p className="text-xs text-lime-700/80 mt-1">Tree-units preserved</p>
+                        <div className="text-2xl font-black text-[#0F4716]">{treesEquivalent.toFixed(2)}</div>
+                        <p className="text-xs text-[#0F4716]/70 mt-1">Tree-units preserved</p>
                     </CardContent>
                 </Card>
 
-                <Card className="border-sky-200 bg-linear-to-br from-sky-50 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                <Card className="border-green-200 bg-linear-to-br from-green-50/70 to-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     <CardHeader className="pb-1">
-                        <CardTitle className="text-sm font-medium text-sky-800 flex items-center gap-2">
+                        <CardTitle className="text-sm font-medium text-[#0F4716] flex items-center gap-2">
                             <CalendarDays size={16} /> This Month
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-black text-sky-700">{monthlyReceipts}</div>
-                        <p className="text-xs text-sky-700/80 mt-1">Eco-friendly purchases</p>
+                        <div className="text-2xl font-black text-[#0F4716]">{monthlyReceipts}</div>
+                        <p className="text-xs text-[#0F4716]/70 mt-1">Eco-friendly purchases</p>
                     </CardContent>
                 </Card>
             </div>
 
-            <Card className="border-cyan-200 bg-linear-to-r from-cyan-50 to-sky-50 shadow-sm">
+            <Card className="border-green-200 bg-linear-to-r from-green-50 to-green-100/50 shadow-sm">
                 <CardContent className="p-4 flex flex-wrap items-center justify-between gap-3">
                     <div>
-                        <p className="text-sm font-semibold text-cyan-900">Every digital receipt adds up to measurable impact.</p>
-                        <p className="text-xs text-cyan-700 mt-1">Keep collecting receipts to improve your monthly sustainability score.</p>
+                        <p className="text-sm font-semibold text-[#0F4716]">Every digital receipt adds up to measurable impact.</p>
+                        <p className="text-xs text-[#0F4716]/70 mt-1">Keep collecting receipts to improve your monthly sustainability score.</p>
                     </div>
-                    <button className="text-sm font-semibold text-cyan-700 hover:text-cyan-900 underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 rounded-sm px-1 py-0.5">
+                    <button className="text-sm font-semibold text-[#0F4716] hover:text-[#0a3310] underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4716]/30 rounded-sm px-1 py-0.5">
                         Share your impact milestone
                     </button>
                 </CardContent>

@@ -58,26 +58,26 @@ export default function RegisterPage() {
                     <CardContent className="space-y-5">
                         <div className="space-y-2">
                             <Label htmlFor="name" className="text-gray-700 font-semibold">Business Name</Label>
-                            <Input id="name" type="text" placeholder="SuperMart Karachi" value={name} onChange={(e) => setName(e.target.value)} className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-green-500" required />
+                            <Input id="name" type="text" placeholder="SuperMart Karachi" value={name} onChange={(e) => setName(e.target.value)} className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-[#0F4716]" required />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="email" className="text-gray-700 font-semibold">Business Email</Label>
-                            <Input id="email" type="email" placeholder="owner@supermart.com" value={email} onChange={(e) => setEmail(e.target.value)} className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-green-500" required />
+                            <Input id="email" type="email" placeholder="owner@supermart.com" value={email} onChange={(e) => setEmail(e.target.value)} className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-[#0F4716]" required />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="password" className="text-gray-700 font-semibold">Secure Password</Label>
-                            <Input id="password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-green-500" required minLength={6} />
+                            <Input id="password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-[#0F4716]" required minLength={6} />
                         </div>
                         {error && <div className="text-sm font-medium text-red-500 bg-red-50 p-3 rounded-md border border-red-100 text-center">{error}</div>}
-                        {successMessage && <div className="text-sm font-medium text-green-600 bg-green-50 p-3 rounded-md border border-green-200 text-center">{successMessage}</div>}
+                        {successMessage && <div className="text-sm font-medium text-[#0F4716] bg-green-50 p-3 rounded-md border border-green-200 text-center">{successMessage}</div>}
                     </CardContent>
                     <CardFooter className="flex flex-col space-y-4 pt-4">
-                        <Button className="w-full h-11 text-base font-bold bg-green-600 hover:bg-green-700" type="submit" disabled={isLoading}>
+                        <Button className="w-full h-11 text-base font-bold bg-[#0F4716] hover:bg-[#0a3310]" type="submit" disabled={isLoading}>
                             {isLoading ? 'Creating Account...' : 'Register Shop'}
                         </Button>
                         <div className="text-center text-sm text-gray-500">
                             Already a partner?{' '}
-                            <Link href="/auth/login?role=retailer" className="text-green-600 hover:underline font-semibold">
+                            <Link href="/auth/login?role=retailer" className="text-[#0F4716] hover:underline font-semibold">
                                 Sign in instead
                             </Link>
                         </div>

@@ -59,7 +59,7 @@ export default function RetailerDashboardLayout({ children }: { children: React.
                 `}>
                     <div className="flex items-center justify-between p-6">
                         <div>
-                            <h1 className="text-2xl font-bold text-gray-900">Raseed</h1>
+                            <h1 className="text-2xl font-bold text-[#0F4716]">Raseed</h1>
                             <p className="text-sm text-gray-500">Retailer Dashboard</p>
                         </div>
                         <button
@@ -78,7 +78,7 @@ export default function RetailerDashboardLayout({ children }: { children: React.
                                     key={item.name}
                                     href={item.href}
                                     onClick={() => setSidebarOpen(false)}
-                                    className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors ${isActive ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
+                                    className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors ${isActive ? 'bg-[#0F4716] text-white' : 'text-gray-600 hover:bg-[#0F4716]/10 hover:text-[#0F4716]'}`}
                                 >
                                     <Icon size={20} />
                                     {item.name}
@@ -104,7 +104,7 @@ export default function RetailerDashboardLayout({ children }: { children: React.
                         >
                             <Menu size={22} />
                         </button>
-                        <h1 className="text-lg font-bold text-gray-900">Raseed</h1>
+                        <h1 className="text-lg font-bold text-[#0F4716]">Raseed</h1>
                     </header>
                     <main className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">{children}</main>
                 </div>

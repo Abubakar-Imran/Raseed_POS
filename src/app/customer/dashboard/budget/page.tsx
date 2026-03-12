@@ -106,10 +106,10 @@ export default function CustomerBudgetPage() {
             </div>
 
             <Card className="border-gray-200 shadow-sm overflow-hidden">
-                <div className="h-1 bg-linear-to-r from-emerald-500 via-teal-500 to-cyan-500" />
+                <div className="h-1 bg-linear-to-r from-[#0F4716] via-[#165d1e] to-[#0a3310]" />
                 <CardHeader>
                     <CardTitle className="text-lg flex items-center gap-2">
-                        <Wallet className="w-5 h-5 text-emerald-600" />
+                        <Wallet className="w-5 h-5 text-[#0F4716]" />
                         Manage Budget
                     </CardTitle>
                     <CardDescription>Choose your budget cycle and amount.</CardDescription>
@@ -121,7 +121,7 @@ export default function CustomerBudgetPage() {
                             <select
                                 value={budgetPeriod}
                                 onChange={(e) => setBudgetPeriod(e.target.value as 'daily' | 'weekly' | 'monthly')}
-                                className="w-full h-10 px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                className="w-full h-10 px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0F4716]/50"
                             >
                                 <option value="daily">Daily</option>
                                 <option value="weekly">Weekly</option>
@@ -143,34 +143,34 @@ export default function CustomerBudgetPage() {
                     </form>
 
                     {savedBudget !== null && (
-                        <div className="rounded-lg border border-teal-100 bg-teal-50/50 p-3 space-y-3">
+                        <div className="rounded-lg border border-green-100 bg-green-50/50 p-3 space-y-3">
                             <div className="flex flex-wrap items-center justify-between gap-3">
                                 <p className="text-sm font-semibold text-gray-900 capitalize flex items-center gap-2">
-                                    <CalendarDays className="w-4 h-4 text-teal-600" />
+                                    <CalendarDays className="w-4 h-4 text-[#0F4716]" />
                                     {budgetPeriod} budget
                                 </p>
                                 <Button type="button" variant="outline" className="h-8" onClick={handleClearBudget}>Clear</Button>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-                                <div className="rounded-md bg-white p-3 border border-teal-100">
+                                <div className="rounded-md bg-white p-3 border border-green-100">
                                     <p className="text-gray-500">Budget</p>
                                     <p className="font-bold text-gray-900">Rs. {savedBudget.toFixed(2)}</p>
                                 </div>
-                                <div className="rounded-md bg-white p-3 border border-teal-100">
+                                <div className="rounded-md bg-white p-3 border border-green-100">
                                     <p className="text-gray-500">Spent</p>
                                     <p className="font-bold text-gray-900">Rs. {currentSpending.toFixed(2)}</p>
                                 </div>
-                                <div className="rounded-md bg-white p-3 border border-teal-100">
+                                <div className="rounded-md bg-white p-3 border border-green-100">
                                     <p className="text-gray-500">Remaining</p>
-                                    <p className={`font-bold ${remainingBudget !== null && remainingBudget < 0 ? 'text-red-600' : 'text-emerald-700'}`}>
+                                    <p className={`font-bold ${remainingBudget !== null && remainingBudget < 0 ? 'text-red-600' : 'text-[#0F4716]'}`}>
                                         Rs. {remainingBudget !== null ? remainingBudget.toFixed(2) : '0.00'}
                                     </p>
                                 </div>
                             </div>
                             <div>
-                                <div className="h-2 w-full bg-teal-100 rounded-full overflow-hidden">
+                                <div className="h-2 w-full bg-green-100 rounded-full overflow-hidden">
                                     <div
-                                        className={`h-full ${budgetProgress >= 100 ? 'bg-red-500' : 'bg-emerald-500'}`}
+                                        className={`h-full ${budgetProgress >= 100 ? 'bg-red-500' : 'bg-[#0F4716]'}`}
                                         style={{ width: `${budgetProgress}%` }}
                                     />
                                 </div>

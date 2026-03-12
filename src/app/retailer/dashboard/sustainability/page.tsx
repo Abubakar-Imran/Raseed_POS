@@ -24,28 +24,28 @@ export default function RetailerSustainabilityPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-3xl font-bold tracking-tight text-green-700">Sustainability Impact</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-[#0F4716]">Sustainability Impact</h2>
                 <p className="text-gray-500">Track the positive environmental impact of switching to digital receipts.</p>
             </div>
             <div className="grid gap-6 md:grid-cols-2">
                 <Card className="border-green-200 bg-green-50">
                     <CardHeader className="flex flex-row items-center justify-between">
-                        <CardTitle className="text-green-800">Paper Rolls Saved</CardTitle>
-                        <Leaf className="text-green-600" size={24} />
+                        <CardTitle className="text-[#0F4716]">Paper Rolls Saved</CardTitle>
+                        <Leaf className="text-[#0F4716]" size={24} />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-5xl font-bold text-green-700">{stats?.paperSavedCount || 0}</div>
-                        <p className="mt-2 text-sm text-green-600">Total digital receipts issued instead of printing.</p>
+                        <div className="text-5xl font-bold text-[#0F4716]">{stats?.paperSavedCount || 0}</div>
+                        <p className="mt-2 text-sm text-[#0F4716]/70">Total digital receipts issued instead of printing.</p>
                     </CardContent>
                 </Card>
-                <Card className="border-teal-200 bg-teal-50">
+                <Card className="border-green-300 bg-green-100">
                     <CardHeader className="flex flex-row items-center justify-between">
-                        <CardTitle className="text-teal-800">Carbon Saved (kg CO2e)</CardTitle>
-                        <TreePine className="text-teal-600" size={24} />
+                        <CardTitle className="text-[#0F4716]">Carbon Saved (kg CO2e)</CardTitle>
+                        <TreePine className="text-[#0F4716]" size={24} />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-5xl font-bold text-teal-700">{(stats?.estimatedCarbonSaved || 0).toFixed(3)}</div>
-                        <p className="mt-2 text-sm text-teal-600">Estimated carbon footprint reduction.</p>
+                        <div className="text-5xl font-bold text-[#0F4716]">{(stats?.estimatedCarbonSaved || 0).toFixed(3)}</div>
+                        <p className="mt-2 text-sm text-[#0F4716]/70">Estimated carbon footprint reduction.</p>
                     </CardContent>
                 </Card>
             </div>

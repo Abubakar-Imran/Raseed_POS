@@ -67,7 +67,7 @@ export default function CustomerReceiptsPage() {
         <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <h2 className="text-2xl font-semibold tracking-tight text-gray-900">My Stores</h2>
-                <div className="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap self-start sm:self-auto">
+                <div className="bg-green-100 text-[#0F4716] text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap self-start sm:self-auto">
                     {storeGroups.length} Stores
                 </div>
             </div>

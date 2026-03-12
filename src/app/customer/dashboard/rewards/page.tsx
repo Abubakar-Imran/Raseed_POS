@@ -62,7 +62,7 @@ export default function RewardsPage() {
                             <CardHeader className="pb-2">
                                 <div className="flex items-center justify-between gap-3">
                                     <CardTitle className="text-lg font-semibold text-gray-900">{reward.discountPercentage}% OFF</CardTitle>
-                                    <div className="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center text-green-700">
+                                    <div className="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center text-[#0F4716]">
                                         <Ticket className="w-5 h-5" />
                                     </div>
                                 </div>
