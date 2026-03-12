@@ -31,6 +31,8 @@ export default function RewardsPage() {
         enabled: !!customerId,
     });
 
+    const safeRewards = Array.isArray(rewards) ? rewards : [];
+
     return (
         <div className="space-y-4 animate-in fade-in duration-500">
             <div className="flex items-center justify-between">
@@ -49,7 +51,7 @@ export default function RewardsPage() {
                         </Card>
                     ))}
                 </div>
-            ) : rewards?.length === 0 ? (
+            ) : safeRewards.length === 0 ? (
                 <Card className="border-dashed border-2 bg-gray-50 flex flex-col items-center justify-center p-8 text-center">
                     <Gift className="w-12 h-12 text-gray-300 mb-4" />
                     <h3 className="text-sm font-medium text-gray-900">No active rewards</h3>
@@ -57,11 +59,14 @@ export default function RewardsPage() {
                 </Card>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                    {rewards?.map((reward: any) => (
+                    {safeRewards.map((reward: any) => {
+                        const retailerName = reward.retailer?.name || reward.Retailer?.name || 'Store';
+
+                        return (
                         <Card key={reward.id} className="border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                             <CardHeader className="pb-2">
                                 <div className="flex items-center justify-between gap-3">
-                                    <CardTitle className="text-lg font-semibold text-gray-900">{reward.discountPercentage}% OFF</CardTitle>
+                                    <CardTitle className="text-lg font-semibold text-gray-900">{Number(reward.discountPercentage ?? 0)}% OFF</CardTitle>
                                     <div className="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center text-[#0F4716]">
                                         <Ticket className="w-5 h-5" />
                                     </div>
@@ -69,7 +74,7 @@ export default function RewardsPage() {
                             </CardHeader>
                             <CardContent className="space-y-3">
                                 <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 text-xs font-semibold px-2.5 py-1 rounded-md">
-                                    <Store size={12} /> {reward.retailer.name}
+                                    <Store size={12} /> {retailerName}
                                 </div>
                                 <p className="text-sm text-gray-500">Use this reward on your next checkout at this store.</p>
                                 <div className="pt-2 border-t text-xs text-gray-500 font-medium">
@@ -77,7 +82,7 @@ export default function RewardsPage() {
                                 </div>
                             </CardContent>
                         </Card>
-                    ))}
+                    );})}
                 </div>
             )}
         </div>

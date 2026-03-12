@@ -8,11 +8,13 @@ export async function GET(
 ) {
     try {
         const { customerId } = await params;
+        const now = new Date().toISOString();
         const { data: discounts } = await supabase
             .from("Discount")
-            .select("*, Retailer(name)")
+            .select("id, customerId, retailerId, discountPercentage, status, expiresAt, createdAt, retailer:Retailer(name)")
             .eq("customerId", customerId)
             .eq("status", "AVAILABLE")
+            .gt("expiresAt", now)
             .order("createdAt", { ascending: false });
 
         return NextResponse.json(discounts ?? []);
