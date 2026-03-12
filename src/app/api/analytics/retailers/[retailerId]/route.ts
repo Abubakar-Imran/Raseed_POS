@@ -23,12 +23,20 @@ export async function GET(
         const totalRevenue =
             revenueRows?.reduce((sum: number, r: any) => sum + (r.totalAmount ?? 0), 0) ?? 0;
 
-        // Repeat customers count
-        const { count: repeatCustomers } = await supabase
-            .from("CustomerLoyalty")
-            .select("*", { count: "exact", head: true })
-            .eq("retailerId", retailerId)
-            .gt("receiptCount", 1);
+        // Repeat customers count (customers with >1 receipts at this retailer)
+        const { data: customerReceiptRows } = await supabase
+            .from("Receipt")
+            .select("customerId")
+            .eq("retailerId", retailerId);
+
+        const customerVisitMap = new Map<string, number>();
+        for (const row of customerReceiptRows ?? []) {
+            const customerId = row.customerId;
+            if (!customerId) continue;
+            customerVisitMap.set(customerId, (customerVisitMap.get(customerId) ?? 0) + 1);
+        }
+
+        const repeatCustomers = Array.from(customerVisitMap.values()).filter((count) => count > 1).length;
 
         // Average feedback rating
         const { data: receiptRows } = await supabase
@@ -52,7 +60,7 @@ export async function GET(
         return NextResponse.json({
             totalReceipts: totalReceipts ?? 0,
             totalRevenue,
-            repeatCustomers: repeatCustomers ?? 0,
+            repeatCustomers,
             averageRating,
         });
     } catch (error) {

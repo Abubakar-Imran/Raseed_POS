@@ -26,7 +26,7 @@ export async function GET(
 
         const { data: feedbacks } = await supabase
             .from("Feedback")
-            .select("*, Customer(email), Receipt(billNumber, totalAmount)")
+            .select("id, rating, comment, createdAt, customer:Customer(email), receipt:Receipt(billNumber, totalAmount, createdAt)")
             .in("receiptId", receiptIds)
             .order("createdAt", { ascending: false })
             .range(skip, skip + take - 1);

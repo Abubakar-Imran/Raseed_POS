@@ -10,7 +10,7 @@ export async function GET(
         const { retailerId } = await params;
         const { data: receipts } = await supabase
             .from("Receipt")
-            .select("*, ReceiptItem(*), Customer(email), Branch(name)")
+            .select("id, billNumber, totalAmount, createdAt, customerId, customer:Customer(email), items:ReceiptItem(id)")
             .eq("retailerId", retailerId)
             .order("createdAt", { ascending: false });
 

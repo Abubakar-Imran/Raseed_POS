@@ -5,7 +5,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Raseed — Digital Receipt Platform',
+    title: 'Raseed - Digital Receipt Platform',
     description: 'POS-integrated digital receipts, loyalty rewards, and sustainability tracking',
 };
 

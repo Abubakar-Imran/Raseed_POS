@@ -10,7 +10,7 @@ export async function GET(
         const { id } = await params;
         const { data: receipt } = await supabase
             .from("Receipt")
-            .select("*, ReceiptItem(*), Retailer(id, name, email), Branch(id, name, location)")
+            .select("id, billNumber, totalAmount, paymentMethod, createdAt, customerId, branchId, retailer:Retailer(id, name, email), branch:Branch(id, name, location), customer:Customer(id, name, email), items:ReceiptItem(id, itemName, quantity, price)")
             .eq("id", id)
             .single();
 

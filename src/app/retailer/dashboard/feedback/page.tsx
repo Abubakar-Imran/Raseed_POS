@@ -21,6 +21,15 @@ export default function RetailerFeedbackPage() {
 
     if (isLoading) return <div>Loading feedback...</div>;
 
+    const renderStars = (rating: number) => {
+        return [1, 2, 3, 4, 5].map((star) => (
+            <Star
+                key={star}
+                className={`w-4 h-4 ${star <= rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
+            />
+        ));
+    };
+
     return (
         <div className="space-y-6">
             <div>
@@ -33,17 +42,37 @@ export default function RetailerFeedbackPage() {
                 ) : (
                     feedbacks?.map((fb: any) => (
                         <Card key={fb.id}>
-                            <CardHeader className="flex flex-row items-center justify-between pb-2">
-                                <CardTitle className="text-sm font-medium">{fb.customer?.email || 'Anonymous'}</CardTitle>
-                                <div className="flex items-center text-yellow-500">
-                                    <Star className="w-4 h-4 fill-current" />
-                                    <span className="ml-1 text-sm font-bold text-gray-900">{fb.rating}</span>
+                            <CardHeader className="space-y-2 pb-2">
+                                <div className="flex items-center justify-between gap-2">
+                                    <CardTitle className="text-sm font-medium truncate">
+                                        {fb.customer?.email || fb.Customer?.email || 'Anonymous'}
+                                    </CardTitle>
+                                    <span className="text-xs font-semibold text-gray-500 whitespace-nowrap">
+                                        {new Date(fb.createdAt).toLocaleDateString()}
+                                    </span>
+                                </div>
+                                <div className="flex items-center justify-between gap-3">
+                                    <div className="flex items-center gap-1">
+                                        {renderStars(fb.rating || 0)}
+                                    </div>
+                                    <span className="text-sm font-bold text-gray-900">{(fb.rating || 0).toFixed(1)} / 5</span>
                                 </div>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-sm text-gray-500 line-clamp-3">{fb.comment || 'No comment provided.'}</p>
-                                <div className="mt-4 text-xs text-gray-400 font-mono">
-                                    Receipt: {fb.receipt?.billNumber} • Rs. {fb.receipt?.totalAmount}
+                                <p className="text-sm text-gray-600 min-h-12">{fb.comment || 'No comment provided.'}</p>
+                                <div className="mt-4 space-y-1 text-xs text-gray-500 font-mono">
+                                    <div>
+                                        Receipt: {fb.receipt?.billNumber || fb.Receipt?.billNumber || 'N/A'}
+                                    </div>
+                                    <div>
+                                        Amount: Rs. {(fb.receipt?.totalAmount ?? fb.Receipt?.totalAmount ?? 0).toFixed(2)}
+                                    </div>
+                                    <div>
+                                        Purchase Date:{' '}
+                                        {fb.receipt?.createdAt || fb.Receipt?.createdAt
+                                            ? new Date(fb.receipt?.createdAt || fb.Receipt?.createdAt).toLocaleString()
+                                            : 'N/A'}
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>

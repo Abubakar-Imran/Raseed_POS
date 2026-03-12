@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Receipt, Store, ArrowRight, Leaf } from 'lucide-react';
+import { Receipt, ArrowRight, Leaf } from 'lucide-react';
 
 export default function LandingPage() {
     const router = useRouter();
@@ -36,21 +36,13 @@ export default function LandingPage() {
                     impact — all in one place without touching a single piece of thermal paper.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+                <div className="flex justify-center w-full max-w-md">
                     <button
-                        onClick={() => router.push('/auth/login?role=customer')}
-                        className="flex-1 group bg-white text-green-800 hover:bg-green-50 font-bold py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-3"
+                        onClick={() => router.push('/auth/login')}
+                        className="group bg-white text-green-800 hover:bg-green-50 font-bold py-4 px-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-3"
                     >
                         <Receipt className="w-5 h-5" />
-                        I'm a Customer
-                        <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </button>
-                    <button
-                        onClick={() => router.push('/auth/login?role=retailer')}
-                        className="flex-1 group bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 font-bold py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-3"
-                    >
-                        <Store className="w-5 h-5" />
-                        I'm a Retailer
+                        Get Started
                         <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </button>
                 </div>

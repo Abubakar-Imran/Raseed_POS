@@ -7,12 +7,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState, useEffect } from 'react';
+import { Trash2 } from 'lucide-react';
 
 export default function LoyaltyPage() {
     const queryClient = useQueryClient();
     const [retailerId, setRetailerId] = useState<string | null>(null);
     const [threshold, setThreshold] = useState('');
     const [discountPercentage, setDiscountPercentage] = useState('');
+    const [deletingRuleId, setDeletingRuleId] = useState<string | null>(null);
 
     useEffect(() => {
         setRetailerId(localStorage.getItem('retailer_id'));
@@ -43,12 +45,41 @@ export default function LoyaltyPage() {
         }
     });
 
+    const deleteRuleMutation = useMutation({
+        mutationFn: async (ruleId: string) => {
+            const res = await fetch(`${API_BASE}/discounts/rules/${ruleId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('retailer_token')}`
+                },
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || 'Failed to delete rule');
+            return data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['loyalty-rules', retailerId] });
+            setDeletingRuleId(null);
+        },
+        onError: () => {
+            setDeletingRuleId(null);
+        }
+    });
+
     const handleCreateRule = (e: React.FormEvent) => {
         e.preventDefault();
         createRuleMutation.mutate({
             retailerId, ruleType: 'RECEIPT_COUNT',
             threshold: parseInt(threshold), discountPercentage: parseInt(discountPercentage), validDays: 30
         });
+    };
+
+    const handleDeleteRule = (ruleId: string) => {
+        const confirmed = window.confirm('Are you sure you want to delete this loyalty rule?');
+        if (!confirmed) return;
+        setDeletingRuleId(ruleId);
+        deleteRuleMutation.mutate(ruleId);
     };
 
     return (
@@ -66,10 +97,22 @@ export default function LoyaltyPage() {
                         ) : (
                             <ul className="space-y-4">
                                 {rules?.map((rule: any) => (
-                                    <li key={rule.id} className="p-4 border rounded-md">
-                                        <p className="font-medium">Every {rule.threshold} Receipts</p>
-                                        <p className="text-sm text-green-600 font-semibold mt-1">Reward: {rule.discountPercentage}% off next purchase</p>
-                                        <p className="text-xs text-gray-500 mt-1">Valid for {rule.validDays} days</p>
+                                    <li key={rule.id} className="p-4 border rounded-md flex items-start justify-between gap-4">
+                                        <div>
+                                            <p className="font-medium">Every {rule.threshold} Receipts</p>
+                                            <p className="text-sm text-green-600 font-semibold mt-1">Reward: {rule.discountPercentage}% off next purchase</p>
+                                            <p className="text-xs text-gray-500 mt-1">Valid for {rule.validDays} days</p>
+                                        </div>
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
+                                            onClick={() => handleDeleteRule(rule.id)}
+                                            disabled={deleteRuleMutation.isPending && deletingRuleId === rule.id}
+                                        >
+                                            <Trash2 className="w-4 h-4 mr-2" />
+                                            {deleteRuleMutation.isPending && deletingRuleId === rule.id ? 'Deleting...' : 'Delete'}
+                                        </Button>
                                     </li>
                                 ))}
                             </ul>

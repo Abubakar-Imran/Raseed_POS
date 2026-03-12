@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchWithAuth } from '@/lib/api';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function RetailerReceiptsPage() {
@@ -38,9 +39,11 @@ export default function RetailerReceiptsPage() {
                                     <tr>
                                         <th className="px-6 py-3">Bill Number</th>
                                         <th className="px-6 py-3">Date</th>
-                                        <th className="px-6 py-3">Customer Email</th>
+                                        <th className="px-6 py-3">Issued To (Customer)</th>
+                                        <th className="px-6 py-3">Customer ID</th>
                                         <th className="px-6 py-3">Total Amount</th>
                                         <th className="px-6 py-3">Items</th>
+                                        <th className="px-6 py-3">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,9 +51,18 @@ export default function RetailerReceiptsPage() {
                                         <tr key={receipt.id} className="bg-white border-b">
                                             <td className="px-6 py-4 font-medium text-gray-900">{receipt.billNumber}</td>
                                             <td className="px-6 py-4">{new Date(receipt.createdAt).toLocaleString()}</td>
-                                            <td className="px-6 py-4">{receipt.customer?.email || 'Unknown'}</td>
-                                            <td className="px-6 py-4">Rs. {receipt.totalAmount.toFixed(2)}</td>
-                                            <td className="px-6 py-4">{receipt.items.length} items</td>
+                                            <td className="px-6 py-4">{receipt.customer?.email || receipt.Customer?.email || 'Unknown'}</td>
+                                            <td className="px-6 py-4 font-mono text-xs">{receipt.customerId || '-'}</td>
+                                            <td className="px-6 py-4">Rs. {(receipt.totalAmount ?? 0).toFixed(2)}</td>
+                                            <td className="px-6 py-4">{Array.isArray(receipt.items) ? receipt.items.length : Array.isArray(receipt.ReceiptItem) ? receipt.ReceiptItem.length : 0} items</td>
+                                            <td className="px-6 py-4">
+                                                <Link
+                                                    href={`/retailer/dashboard/receipts/${receipt.id}`}
+                                                    className="inline-flex items-center rounded-md border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-100"
+                                                >
+                                                    View Details
+                                                </Link>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
