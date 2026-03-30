@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { API_BASE, fetchWithAuth } from '@/lib/api';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Receipt, DollarSign, Users, Star, TrendingUp } from 'lucide-react';
+import { Receipt, DollarSign, Users, Star, TrendingUp, Trophy } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -73,6 +73,41 @@ export default function RetailerDashboardOverview() {
     const trendDirection = trendDelta >= 0 ? 'up' : 'down';
 
     const recentReceipts = safeReceipts.slice(0, 3);
+
+    const loyalCustomersMap = safeReceipts.reduce((acc: Record<string, any>, receipt: any) => {
+        const customerEmail = receipt.customer?.email || receipt.Customer?.email || null;
+        const customerKey = receipt.customerId || customerEmail;
+        if (!customerKey) return acc;
+
+        if (!acc[customerKey]) {
+            acc[customerKey] = {
+                key: customerKey,
+                customerId: receipt.customerId || null,
+                email: customerEmail,
+                visits: 0,
+                totalSpent: 0,
+                lastPurchaseAt: receipt.createdAt,
+            };
+        }
+
+        acc[customerKey].visits += 1;
+        acc[customerKey].totalSpent += receipt.totalAmount ?? 0;
+
+        const existingDate = new Date(acc[customerKey].lastPurchaseAt).getTime();
+        const incomingDate = new Date(receipt.createdAt).getTime();
+        if (incomingDate > existingDate) {
+            acc[customerKey].lastPurchaseAt = receipt.createdAt;
+        }
+
+        return acc;
+    }, {});
+
+    const topLoyalCustomers = Object.values(loyalCustomersMap)
+        .sort((a: any, b: any) => {
+            if (b.visits !== a.visits) return b.visits - a.visits;
+            return b.totalSpent - a.totalSpent;
+        })
+        .slice(0, 5);
 
     return (
         <div className="space-y-6">
@@ -177,6 +212,42 @@ export default function RetailerDashboardOverview() {
                     </CardContent>
                 </Card>
             </div>
+
+            <Card>
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                    <CardTitle className="text-base flex items-center gap-2">
+                        <Trophy className="h-4 w-4" />
+                        Top Loyal Customers
+                    </CardTitle>
+                    <Link href="/retailer/dashboard/loyalty" className="text-xs font-semibold text-gray-600 hover:text-gray-900">
+                        Loyalty rules
+                    </Link>
+                </CardHeader>
+                <CardContent>
+                    {topLoyalCustomers.length === 0 ? (
+                        <p className="text-sm text-gray-500">No customer purchase history yet.</p>
+                    ) : (
+                        <div className="space-y-3">
+                            {topLoyalCustomers.map((customer: any, index: number) => (
+                                <div key={customer.key} className="flex items-center justify-between gap-3 rounded-md border p-3">
+                                    <div className="min-w-0">
+                                        <p className="text-sm font-semibold text-gray-900 truncate">
+                                            #{index + 1} {customer.email || customer.customerId || 'Unknown customer'}
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                            {customer.visits} purchase{customer.visits === 1 ? '' : 's'}
+                                        </p>
+                                    </div>
+                                    <div className="text-right whitespace-nowrap">
+                                        <p className="text-sm font-bold text-gray-900">Rs. {customer.totalSpent.toFixed(2)}</p>
+                                        <p className="text-xs text-gray-500">Last: {new Date(customer.lastPurchaseAt).toLocaleDateString()}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </CardContent>
+            </Card>
         </div>
     );
 }
