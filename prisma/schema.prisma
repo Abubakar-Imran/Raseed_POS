@@ -12,7 +12,10 @@ model Retailer {
   id            String    @id @default(uuid())
   name          String
   email         String    @unique
-  passwordHash  String
+  passwordHash  String?
+  emailVerifiedAt DateTime?
+  verificationTokenHash String?
+  verificationTokenExpiresAt DateTime?
   createdAt     DateTime  @default(now())
 
   branches         Branch[]
