@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,10 +9,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { API_BASE } from '@/lib/api';
 
 export default function RegisterPage() {
-    const router = useRouter();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
@@ -28,16 +25,13 @@ export default function RegisterPage() {
             const res = await fetch(`${API_BASE}/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password }),
+                body: JSON.stringify({ name, email }),
             });
 
             const data = await res.json();
             if (!res.ok) throw new Error(data.message || 'Registration failed');
 
-            setSuccessMessage('Shop registered successfully! Redirecting to login...');
-            setTimeout(() => {
-                router.push('/auth/login?role=retailer');
-            }, 2000);
+            setSuccessMessage('Store registered. Check your email for a verification link, then set your password to finish onboarding.');
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -51,33 +45,29 @@ export default function RegisterPage() {
                 <CardHeader className="space-y-2 text-center pb-6">
                     <CardTitle className="text-3xl font-extrabold tracking-tight text-gray-900">Partner with Raseed</CardTitle>
                     <CardDescription className="text-base text-gray-500">
-                        Create a free account to modernize your shop with digital receipts and loyalty programs.
+                        Register your store first. We will email a verification link before you create the password.
                     </CardDescription>
                 </CardHeader>
                 <form onSubmit={handleRegister}>
                     <CardContent className="space-y-5">
                         <div className="space-y-2">
-                            <Label htmlFor="name" className="text-gray-700 font-semibold">Business Name</Label>
+                            <Label htmlFor="name" className="text-gray-700 font-semibold">Store Name</Label>
                             <Input id="name" type="text" placeholder="SuperMart Karachi" value={name} onChange={(e) => setName(e.target.value)} className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-[#0F4716]" required />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="email" className="text-gray-700 font-semibold">Business Email</Label>
+                            <Label htmlFor="email" className="text-gray-700 font-semibold">Verification Email</Label>
                             <Input id="email" type="email" placeholder="owner@supermart.com" value={email} onChange={(e) => setEmail(e.target.value)} className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-[#0F4716]" required />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="password" className="text-gray-700 font-semibold">Secure Password</Label>
-                            <Input id="password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-[#0F4716]" required minLength={6} />
                         </div>
                         {error && <div className="text-sm font-medium text-red-500 bg-red-50 p-3 rounded-md border border-red-100 text-center">{error}</div>}
                         {successMessage && <div className="text-sm font-medium text-[#0F4716] bg-green-50 p-3 rounded-md border border-green-200 text-center">{successMessage}</div>}
                     </CardContent>
                     <CardFooter className="flex flex-col space-y-4 pt-4">
                         <Button className="w-full h-11 text-base font-bold bg-[#0F4716] hover:bg-[#0a3310]" type="submit" disabled={isLoading}>
-                            {isLoading ? 'Creating Account...' : 'Register Shop'}
+                            {isLoading ? 'Sending Verification...' : 'Register Store'}
                         </Button>
                         <div className="text-center text-sm text-gray-500">
-                            Already a partner?{' '}
-                            <Link href="/auth/login?role=retailer" className="text-[#0F4716] hover:underline font-semibold">
+                            Already verified?{' '}
+                            <Link href="/retailer-portal" className="text-[#0F4716] hover:underline font-semibold">
                                 Sign in instead
                             </Link>
                         </div>

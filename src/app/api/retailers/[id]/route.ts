@@ -56,6 +56,13 @@ export async function PATCH(
             );
         }
 
+        if (!retailer.passwordHash) {
+            return NextResponse.json(
+                { message: "Set a password from the verification email before updating profile credentials." },
+                { status: 403 }
+            );
+        }
+
         // Always require current password to authorize changes
         const passwordMatch = await bcrypt.compare(currentPassword, retailer.passwordHash);
         if (!passwordMatch) {

@@ -1,29 +1,77 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase-server";
-import bcrypt from "bcrypt";
+import { createHash, randomBytes } from "crypto";
+import { sendRetailerVerificationEmail } from "@/lib/mailer";
 
 // POST /api/auth/register — Retailer registration
 export async function POST(request: NextRequest) {
     try {
-        const { name, email, password } = await request.json();
+        const { name, email } = await request.json();
 
-        const { data: existing } = await supabase
-            .from("Retailer")
-            .select("id")
-            .eq("email", email)
-            .single();
-
-        if (existing) {
+        if (!name || !email) {
             return NextResponse.json(
-                { message: "Retailer with this email already exists." },
+                { message: "Store name and email are required." },
                 { status: 400 }
             );
         }
 
-        const passwordHash = await bcrypt.hash(password, 10);
+        const verificationToken = randomBytes(32).toString("hex");
+        const verificationTokenHash = createHash("sha256")
+            .update(verificationToken)
+            .digest("hex");
+        const verificationTokenExpiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+        const appBaseUrl = process.env.NEXT_PUBLIC_APP_URL || request.nextUrl.origin;
+
+        const { data: existing } = await supabase
+            .from("Retailer")
+            .select("id, emailVerifiedAt")
+            .eq("email", email)
+            .maybeSingle();
+
+        const verificationUrl = `${appBaseUrl}/auth/register/verify?token=${verificationToken}`;
+
+        if (existing?.emailVerifiedAt) {
+            return NextResponse.json(
+                { message: "A verified retailer already exists with this email." },
+                { status: 400 }
+            );
+        }
+
+        if (existing) {
+            const { error: updateError } = await supabase
+                .from("Retailer")
+                .update({
+                    name,
+                    verificationTokenHash,
+                    verificationTokenExpiresAt,
+                })
+                .eq("id", existing.id);
+
+            if (updateError) {
+                console.error("Register update error:", updateError);
+                return NextResponse.json(
+                    { message: "Failed to update retailer registration", detail: updateError.message },
+                    { status: 500 }
+                );
+            }
+
+            await sendRetailerVerificationEmail(email, verificationUrl);
+
+            return NextResponse.json({
+                message: "Verification email resent. Check your inbox to continue setting up your password.",
+            });
+        }
+
         const { data: retailer, error } = await supabase
             .from("Retailer")
-            .insert({ id: crypto.randomUUID(), name, email, passwordHash })
+            .insert({
+                id: crypto.randomUUID(),
+                name,
+                email,
+                passwordHash: null,
+                verificationTokenHash,
+                verificationTokenExpiresAt,
+            })
             .select()
             .single();
 
@@ -42,7 +90,11 @@ export async function POST(request: NextRequest) {
             location: "HQ",
         });
 
-        return NextResponse.json({ message: "Retailer registered successfully" });
+        await sendRetailerVerificationEmail(email, verificationUrl);
+
+        return NextResponse.json({
+            message: "Retailer registered successfully. Check your email to verify your store and continue setup.",
+        });
     } catch (error) {
         console.error("Register Retailer Error:", error);
         return NextResponse.json(

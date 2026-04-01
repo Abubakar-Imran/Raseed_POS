@@ -63,13 +63,13 @@ export default function RetailerPortalPage() {
             const res = await fetch(`${API_BASE}/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password }),
+                body: JSON.stringify({ name, email }),
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.message || 'Registration failed');
 
+            setSuccessMessage('Store registered. Check the verification email, then complete password setup from the link.');
             resetAuthForm();
-            setTab('login');
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -84,7 +84,7 @@ export default function RetailerPortalPage() {
 
     const headings: Record<Tab, { title: string; subtitle: string }> = {
         login: { title: 'Retailer Login', subtitle: 'Sign in to access your retailer dashboard.' },
-        register: { title: 'Create Retailer Account', subtitle: 'Admin: create a new retailer account on behalf of a partner.' },
+        register: { title: 'Create Retailer Account', subtitle: '' },
     };
 
     return (
@@ -195,7 +195,7 @@ export default function RetailerPortalPage() {
                         {tab === 'register' && (
                             <form onSubmit={handleRegister} className="space-y-5">
                                 <div className="space-y-2">
-                                    <Label htmlFor="reg-name" className="font-semibold text-gray-700">Business Name</Label>
+                                    <Label htmlFor="reg-name" className="font-semibold text-gray-700">Store Name</Label>
                                     <Input
                                         id="reg-name"
                                         type="text"
@@ -207,7 +207,7 @@ export default function RetailerPortalPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="reg-email" className="font-semibold text-gray-700">Business Email</Label>
+                                    <Label htmlFor="reg-email" className="font-semibold text-gray-700">Verification Email</Label>
                                     <Input
                                         id="reg-email"
                                         type="email"
@@ -218,22 +218,14 @@ export default function RetailerPortalPage() {
                                         required
                                     />
                                 </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="reg-password" className="font-semibold text-gray-700">Initial Password</Label>
-                                    <Input
-                                        id="reg-password"
-                                        type="password"
-                                        placeholder="••••••••"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        className="h-12 px-4 text-base bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#0F4716] rounded-xl transition-all"
-                                        required
-                                        minLength={6}
-                                    />
-                                </div>
                                 {error && (
                                     <div className="text-sm font-medium text-red-500 bg-red-50 p-3 rounded-lg border border-red-100 text-center">
                                         {error}
+                                    </div>
+                                )}
+                                {successMessage && (
+                                    <div className="text-sm font-medium text-[#0F4716] bg-green-50 p-3 rounded-lg border border-green-200 text-center">
+                                        {successMessage}
                                     </div>
                                 )}
                                 <Button
@@ -241,8 +233,11 @@ export default function RetailerPortalPage() {
                                     type="submit"
                                     disabled={isLoading}
                                 >
-                                    {isLoading ? 'Creating Account...' : 'Create Retailer Account'}
+                                    {isLoading ? 'Sending Verification...' : 'Create Retailer Account'}
                                 </Button>
+                                <p className="text-xs text-gray-500 text-center leading-5">
+                                    We’ll email a verification link first. Password setup happens after the email is confirmed.
+                                </p>
                             </form>
                         )}
 

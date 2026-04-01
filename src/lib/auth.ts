@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { type SignOptions } from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
 
 const JWT_SECRET = process.env.JWT_SECRET || "super-secret-key";
@@ -9,11 +9,35 @@ export interface JwtPayload {
     role: "customer" | "retailer";
 }
 
+export interface OnboardingPayload {
+    sub: string;
+    email: string;
+    purpose: "retailer-password-setup";
+}
+
 /**
  * Sign a JWT token for a user
  */
 export function signToken(payload: JwtPayload): string {
     return jwt.sign(payload, JWT_SECRET);
+}
+
+export function signOnboardingToken(payload: OnboardingPayload, expiresIn: SignOptions["expiresIn"] = "15m"): string {
+    return jwt.sign(payload, JWT_SECRET, { expiresIn });
+}
+
+export function verifyOnboardingToken(token: string): OnboardingPayload | null {
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET) as OnboardingPayload;
+
+        if (decoded.purpose !== "retailer-password-setup") {
+            return null;
+        }
+
+        return decoded;
+    } catch {
+        return null;
+    }
 }
 
 /**

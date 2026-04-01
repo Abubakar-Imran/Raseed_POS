@@ -21,6 +21,20 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        if (!retailer.emailVerifiedAt) {
+            return NextResponse.json(
+                { message: "Verify your email before signing in." },
+                { status: 403 }
+            );
+        }
+
+        if (!retailer.passwordHash) {
+            return NextResponse.json(
+                { message: "Complete password setup from your verification email before signing in." },
+                { status: 403 }
+            );
+        }
+
         const isMatch = await bcrypt.compare(password, retailer.passwordHash);
         if (!isMatch) {
             return NextResponse.json(
