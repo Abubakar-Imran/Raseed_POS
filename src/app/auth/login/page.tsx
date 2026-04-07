@@ -82,8 +82,8 @@ function LoginForm() {
 
                 <div className="relative z-10 max-w-xl flex flex-col items-center text-center">
                     <img src="/raseed_logo3.png" alt="Raseed Logo" className="w-44 h-44 mb-4" />
-                    <h1 className="text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6">
-                        The Future of <br />
+                    <h1 className="text-3xl lg:text-4xl font-black tracking-tight leading-tight mb-6">
+                        Redefining the post-purchase journey with secure <br />
                         <span className="text-transparent bg-clip-text bg-linear-to-r from-green-200 to-green-100">
                             Digital Receipts
                         </span>

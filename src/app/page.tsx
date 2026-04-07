@@ -26,8 +26,8 @@ export default function LandingPage() {
             {/* Hero */}
             <main className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto">
                 <img src="/raseed_logo3.png" alt="Raseed Logo" className="w-44 h-44 mb-8" />
-                <h1 className="text-5xl lg:text-7xl font-black tracking-tight leading-tight mb-6">
-                    The Future of{' '}
+                <h1 className="text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-6">
+                    Redefining the post-purchase journey with secure{' '}
                     <span className="text-transparent bg-clip-text bg-linear-to-r from-green-200 to-green-100">
                         Digital Receipts
                     </span>
