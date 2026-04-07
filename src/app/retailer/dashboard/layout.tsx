@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { LayoutDashboard, Receipt, Gift, MessageSquare, Leaf, LogOut, UserCog, Menu, X } from 'lucide-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -58,9 +59,19 @@ export default function RetailerDashboardLayout({ children }: { children: React.
                     ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
                 `}>
                     <div className="flex items-center justify-between p-6">
-                        <div>
-                            <h1 className="text-2xl font-bold text-[#0F4716]">Raseed</h1>
-                            <p className="text-sm text-gray-500">Retailer Dashboard</p>
+                        <div className="flex items-center gap-3">
+                            <Image
+                                src="/raseed_logo3.png"
+                                alt="Raseed logo"
+                                width={20}
+                                height={20}
+                                className="h-10 w-10 rounded-md object-contain"
+                                priority
+                            />
+                            <div>
+                                <h1 className="text-2xl font-bold text-[#0F4716]">Raseed</h1>
+                                <p className="text-sm text-gray-500">Retailer Dashboard</p>
+                            </div>
                         </div>
                         <button
                             className="lg:hidden p-1 rounded-md text-gray-500 hover:bg-gray-100"
@@ -104,6 +115,14 @@ export default function RetailerDashboardLayout({ children }: { children: React.
                         >
                             <Menu size={22} />
                         </button>
+                        <Image
+                            src="/raseed_logo3.png"
+                            alt="Raseed logo"
+                            width={28}
+                            height={28}
+                            className="h-7 w-7 rounded-md object-contain"
+                            priority
+                        />
                         <h1 className="text-lg font-bold text-[#0F4716]">Raseed</h1>
                     </header>
                     <main className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">{children}</main>

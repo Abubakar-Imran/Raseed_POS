@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { API_BASE } from '@/lib/api';
 import { Suspense } from 'react';
+import Image from 'next/image';
 
 function LoginForm() {
     const router = useRouter();
@@ -68,10 +69,19 @@ function LoginForm() {
                 <div className="absolute bottom-10 left-10 -ml-20 -mb-20 w-80 h-80 rounded-full bg-green-400 opacity-10 mix-blend-overlay blur-3xl" />
 
                 <div className="relative z-10 flex items-center gap-3">
-                    <span className="text-2xl font-black tracking-widest text-white uppercase opacity-90">Raseed</span>
+                    <Image
+                        src="/raseed_logo3.png"
+                        alt="Raseed logo"
+                        width={20}
+                        height={20}
+                        className="h-10 w-10 rounded-md object-contain"
+                        priority
+                    />
+                    <span className="text-xl font-black tracking-widest text-white uppercase">Raseed</span>
                 </div>
 
-                <div className="relative z-10 max-w-xl">
+                <div className="relative z-10 max-w-xl flex flex-col items-center text-center">
+                    <img src="/raseed_logo3.png" alt="Raseed Logo" className="w-44 h-44 mb-4" />
                     <h1 className="text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6">
                         The Future of <br />
                         <span className="text-transparent bg-clip-text bg-linear-to-r from-green-200 to-green-100">
@@ -90,8 +100,16 @@ function LoginForm() {
 
             {/* Right Side: Auth Form */}
             <div className="flex w-full lg:w-1/2 items-center justify-center p-6 sm:p-12 xl:p-24 bg-gray-50 lg:bg-white relative">
-                <div className="lg:hidden absolute top-8 left-8">
-                    <span className="text-2xl font-black tracking-widest text-[#0F4716] uppercase">Raseed</span>
+                <div className="lg:hidden absolute top-8 left-8 flex items-center gap-3 ">
+                    <Image
+                        src="/raseed_logo3.png"
+                        alt="Raseed logo"
+                        width={20}
+                        height={20}
+                        className="h-10 w-10 rounded-md object-contain"
+                        priority
+                    />
+                    <span className="text-2xl font-black tracking-widest text-[#0F4716] uppercase"><a href="/">Raseed</a></span>
                 </div>
 
                 <div className="w-full max-w-md space-y-8 bg-white lg:bg-transparent p-8 lg:p-0 rounded-3xl lg:rounded-none shadow-xl lg:shadow-none border lg:border-none border-gray-100 relative z-10">

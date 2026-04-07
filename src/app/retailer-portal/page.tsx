@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { API_BASE } from '@/lib/api';
+import Image from 'next/image';
+
 
 type Tab = 'login' | 'register';
 
@@ -90,9 +92,17 @@ export default function RetailerPortalPage() {
     return (
         <div className="min-h-screen w-full bg-gray-50">
             {/* Top bar (mobile) */}
-            <div className="lg:hidden flex items-center justify-between px-6 py-5 bg-[#0F4716]">
-                <span className="text-xl font-black tracking-widest text-white uppercase">Raseed</span>
-                <span className="text-xs font-semibold text-green-100 uppercase tracking-widest">Retailer Portal</span>
+            <div className="lg:hidden flex items-center gap-4 justify-start px-6 py-5 bg-[#0F4716]">
+                <Image
+                    src="/raseed_logo3.png"
+                    alt="Raseed logo"
+                    width={20}
+                    height={20}
+                    className="h-10 w-10 rounded-md object-contain"
+                    priority
+                />
+                <span className="text-xl font-black tracking-widest text-white uppercase"><a href="/">Raseed</a></span>
+                {/* <span className="text-xs font-semibold text-green-100 uppercase tracking-widest">Retailer Portal</span> */}
             </div>
 
             <div className="flex min-h-[calc(100vh-64px)] lg:min-h-screen">
@@ -105,7 +115,8 @@ export default function RetailerPortalPage() {
                         <span className="text-2xl font-black tracking-widest text-white uppercase opacity-90">Raseed</span>
                     </div>
 
-                    <div className="relative z-10 max-w-xl">
+                    <div className="relative z-10 max-w-xl flex flex-col items-center text-center">
+                    <img src="/raseed_logo3.png" alt="Raseed Logo" className="w-44 h-44 mb-4" />                        
                         <h1 className="text-5xl xl:text-6xl font-black tracking-tight leading-tight mb-6">
                             Retailer <br />
                             <span className="text-transparent bg-clip-text bg-linear-to-r from-green-200 to-green-100">

@@ -16,15 +16,16 @@ export default function LandingPage() {
             {/* Header */}
             <header className="relative z-10 flex items-center justify-between px-8 py-6">
                 <div className="flex items-center gap-3">
-                    <div className="p-3 bg-white/10 backdrop-blur-md rounded-xl shadow-inner border border-white/20">
+                    {/* <div className="p-3 bg-white/10 backdrop-blur-md rounded-xl shadow-inner border border-white/20">
                         <Receipt className="w-6 h-6" />
-                    </div>
+                    </div> */}
                     <span className="text-2xl font-black tracking-widest uppercase opacity-90">Raseed</span>
                 </div>
             </header>
 
             {/* Hero */}
             <main className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto">
+                <img src="/raseed_logo3.png" alt="Raseed Logo" className="w-44 h-44 mb-8" />
                 <h1 className="text-5xl lg:text-7xl font-black tracking-tight leading-tight mb-6">
                     The Future of{' '}
                     <span className="text-transparent bg-clip-text bg-linear-to-r from-green-200 to-green-100">
@@ -33,7 +34,7 @@ export default function LandingPage() {
                 </h1>
                 <p className="text-lg lg:text-xl text-green-50/80 font-medium max-w-2xl mb-12">
                     Access your purchase history, unlock loyalty rewards, and track your environmental
-                    impact — all in one place without touching a single piece of thermal paper.
+                    impact - all in one place without touching a single piece of thermal paper.
                 </p>
 
                 <div className="flex justify-center w-full max-w-md">

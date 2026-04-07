@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Home, Receipt, Award, LogOut, Wallet, Leaf, Menu, X, MessageSquarePlus } from 'lucide-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { getSupabaseBrowserClient } from '@/lib/supabase';
+import Image from 'next/image';
 
 const queryClient = new QueryClient();
 
@@ -72,7 +73,15 @@ export default function CustomerDashboardLayout({ children }: { children: React.
             <div className="flex flex-col min-h-screen bg-slate-50">
                 <header className="bg-white border-b px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 z-50 shadow-sm">
                     <div className="flex items-center gap-5">
-                        <h1 className="text-xl sm:text-2xl font-extrabold text-[#0F4716] tracking-tight">Raseed</h1>
+                        <Image
+                        src="/raseed_logo3.png"
+                        alt="Raseed logo"
+                        width={20}
+                        height={20}
+                        className="h-10 w-10 rounded-md object-contain"
+                        priority
+                    />
+                        <h1 className="text-xl sm:text-2xl font-extrabold text-[#0F4716] tracking-tight"><a href="/customer/dashboard">Raseed</a></h1>
                         <nav className="hidden md:flex items-center gap-2">
                             {navItems.map((item) => {
                                 const isActive = pathname === item.href;

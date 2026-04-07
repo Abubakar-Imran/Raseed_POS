@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -102,7 +103,17 @@ export default function RetailerVerificationForm() {
     return (
         <div className="flex min-h-screen w-full items-center justify-center bg-gray-50 p-4">
             <Card className="w-full max-w-md border-gray-100 shadow-lg">
-                <CardHeader className="space-y-2 text-center pb-6">
+                <CardHeader className="space-y-4 text-center pb-6">
+                    <div className="flex justify-center">
+                        <Image
+                            src="/raseed_logo3.png"
+                            alt="Raseed logo"
+                            width={72}
+                            height={72}
+                            className="h-18 w-18 rounded-xl object-contain"
+                            priority
+                        />
+                    </div>
                     <CardTitle className="text-3xl font-extrabold tracking-tight text-gray-900">
                         Finish {storeName} setup
                     </CardTitle>
