@@ -58,7 +58,7 @@ export default function CustomerDashboardLayout({ children }: { children: React.
         { name: 'Receipts', href: '/customer/dashboard/receipts', icon: Receipt },
         { name: 'Rewards', href: '/customer/dashboard/rewards', icon: Award },
         { name: 'Sustainability', href: '/customer/dashboard/sustainability', icon: Leaf },
-        { name: 'Budget', href: '/customer/dashboard/budget', icon: Wallet },
+        // { name: 'Budget', href: '/customer/dashboard/budget', icon: Wallet },
         { name: 'Feedback', href: '/customer/dashboard/feedback', icon: MessageSquarePlus },
     ];
 

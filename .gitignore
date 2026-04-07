@@ -33,6 +33,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# remove budget module in customer dashboard
-/src/app/customer/dashboard/budget/page.tsx

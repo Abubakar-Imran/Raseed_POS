@@ -128,7 +128,7 @@ export default function CustomerDashboardHome() {
                 </Card>
 
                 <div className="space-y-3">
-                    <Card className="border-border bg-linear-to-r from-secondary to-accent/40 shadow-sm">
+                    {/* <Card className="border-border bg-linear-to-r from-secondary to-accent/40 shadow-sm">
                         <CardContent className="p-4">
                             <p className="text-sm font-semibold text-primary">You shop with {retailerCount} store{retailerCount === 1 ? '' : 's'}</p>
                             <p className="mt-1 text-xs text-primary/70">Track your limits and spending from the Budget tab.</p>
@@ -136,7 +136,7 @@ export default function CustomerDashboardHome() {
                                 Open Budget Tracker
                             </Link>
                         </CardContent>
-                    </Card>
+                    </Card> */}
 
                     <div className="grid grid-cols-1 gap-3">
                         <Link href="/customer/dashboard/rewards">
