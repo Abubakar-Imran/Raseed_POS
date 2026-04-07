@@ -56,7 +56,9 @@ export default function CustomerDashboardHome() {
         <div className="space-y-4 animate-in fade-in duration-500">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3">
                 <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
-                    Welcome back{customerData?.name ? `, ${customerData.name}` : '!'}
+                    {/* Welcome back{customerData?.name ? `, ${customerData.name}` : '!'} */}
+                    {/* display customer name if available otherwise just welcome back! and display its email to get identified */}
+                    Welcome Back{customerData?.name ? `, ${customerData.name}` : '!'} {customerData?.name ? '' : `(${email})`}
                 </h2>
                 <Link href="/customer/dashboard/receipts" className="inline-flex shrink-0 items-center self-start text-sm font-medium text-primary hover:underline">
                     All Receipts <ArrowRight size={14} className="ml-1" />

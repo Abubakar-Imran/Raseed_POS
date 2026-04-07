@@ -126,9 +126,9 @@ export default function CustomerSustainabilityPage() {
                         <p className="text-sm font-semibold text-primary">Every digital receipt adds up to measurable impact.</p>
                         <p className="mt-1 text-xs text-primary/70">Keep collecting receipts to improve your monthly sustainability score.</p>
                     </div>
-                    <button className="rounded-sm px-1 py-0.5 text-sm font-semibold text-primary underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 hover:text-[#0a3310]">
+                    {/* <button className="rounded-sm px-1 py-0.5 text-sm font-semibold text-primary underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 hover:text-[#0a3310]">
                         Share your impact milestone
-                    </button>
+                    </button> */}
                 </CardContent>
             </Card>
         </div>
