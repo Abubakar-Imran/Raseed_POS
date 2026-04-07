@@ -85,23 +85,23 @@ export default function LoyaltyPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-3xl font-bold tracking-tight">Loyalty Program</h2>
-                <p className="text-gray-500">Configure rules to automatically reward repeat customers.</p>
+                <h2 className="text-3xl font-bold tracking-tight text-foreground">Loyalty Program</h2>
+                <p className="text-muted-foreground">Configure rules to automatically reward repeat customers.</p>
             </div>
             <div className="grid gap-6 md:grid-cols-2">
                 <Card>
                     <CardHeader><CardTitle>Active Rules</CardTitle></CardHeader>
                     <CardContent>
                         {rules?.length === 0 ? (
-                            <p className="text-gray-500 text-sm">No rules configured yet.</p>
+                            <p className="text-sm text-muted-foreground">No rules configured yet.</p>
                         ) : (
                             <ul className="space-y-4">
                                 {rules?.map((rule: any) => (
                                     <li key={rule.id} className="p-4 border rounded-md flex items-start justify-between gap-4">
                                         <div>
                                             <p className="font-medium">Every {rule.threshold} Receipts</p>
-                                            <p className="text-sm text-[#0F4716] font-semibold mt-1">Reward: {rule.discountPercentage}% off next purchase</p>
-                                            <p className="text-xs text-gray-500 mt-1">Valid for {rule.validDays} days</p>
+                                            <p className="mt-1 text-sm font-semibold text-primary">Reward: {rule.discountPercentage}% off next purchase</p>
+                                            <p className="mt-1 text-xs text-muted-foreground">Valid for {rule.validDays} days</p>
                                         </div>
                                         <Button
                                             type="button"
@@ -126,12 +126,12 @@ export default function LoyaltyPage() {
                             <div className="space-y-2">
                                 <Label>Receipt Count Threshold</Label>
                                 <Input type="number" placeholder="e.g. 5" value={threshold} onChange={e => setThreshold(e.target.value)} required />
-                                <p className="text-xs text-gray-500">Number of visits required to unlock the reward.</p>
+                                <p className="text-xs text-muted-foreground">Number of visits required to unlock the reward.</p>
                             </div>
                             <div className="space-y-2">
                                 <Label>Discount Percentage</Label>
                                 <Input type="number" placeholder="e.g. 10" value={discountPercentage} onChange={e => setDiscountPercentage(e.target.value)} required />
-                                <p className="text-xs text-gray-500">The percentage discount applied on their next visit.</p>
+                                <p className="text-xs text-muted-foreground">The percentage discount applied on their next visit.</p>
                             </div>
                             <Button type="submit" disabled={createRuleMutation.isPending}>Save Rule</Button>
                         </form>

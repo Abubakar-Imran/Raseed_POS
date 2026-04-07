@@ -112,12 +112,12 @@ function LoginForm() {
                     <span className="text-2xl font-black tracking-widest text-[#0F4716] uppercase"><a href="/">Raseed</a></span>
                 </div>
 
-                <div className="w-full max-w-md space-y-8 bg-white lg:bg-transparent p-8 lg:p-0 rounded-3xl lg:rounded-none shadow-xl lg:shadow-none border lg:border-none border-gray-100 relative z-10">
+                <div className="w-full max-w-md space-y-8 bg-white lg:bg-transparent p-4 md:p-8 lg:p-0 rounded-3xl lg:rounded-none shadow-xl lg:shadow-none border lg:border-none border-gray-100 relative z-10">
                     <div className="space-y-2 text-center lg:text-left">
                         <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
                             {step === 'EMAIL' ? 'Welcome Back' : 'Secure Login'}
                         </h2>
-                        <p className="text-gray-500 font-medium">
+                        <p className="text-gray-500 font-mono md:font-medium">
                             {step === 'EMAIL'
                                 ? 'Enter your email address to access your wallet.'
                                 : `Enter the 4-digit code sent to ${email}`}
@@ -162,7 +162,7 @@ function LoginForm() {
                                         placeholder="0000"
                                         value={otp}
                                         onChange={(e) => setOtp(e.target.value)}
-                                        className="h-16 text-center text-4xl tracking-[0.5em] font-mono font-bold bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#0F4716] rounded-2xl transition-all placeholder:opacity-40"
+                                        className="h-16 text-center text-3xl md:text-4xl tracking-[0.5em] font-mono font-bold bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#0F4716] rounded-2xl transition-all placeholder:opacity-40"
                                         required
                                         maxLength={6}
                                     />

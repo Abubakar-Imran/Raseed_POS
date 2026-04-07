@@ -36,26 +36,26 @@ export default function RewardsPage() {
     return (
         <div className="space-y-4 animate-in fade-in duration-500">
             <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-semibold tracking-tight text-gray-900">My Rewards</h2>
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground">My Rewards</h2>
             </div>
-            <p className="text-sm text-gray-500">Your available discounts from stores you shop at most.</p>
+            <p className="text-sm text-muted-foreground">Your available discounts from stores you shop at most.</p>
             {isLoading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 animate-pulse">
                     {[1, 2, 3].map((i) => (
-                        <Card key={i} className="border-gray-200 shadow-sm">
+                        <Card key={i} className="border-border shadow-sm">
                             <CardContent className="p-5 space-y-3">
-                                <div className="h-6 w-24 rounded bg-gray-200" />
-                                <div className="h-4 w-40 rounded bg-gray-200" />
-                                <div className="h-4 w-32 rounded bg-gray-200" />
+                                <div className="h-6 w-24 rounded bg-muted" />
+                                <div className="h-4 w-40 rounded bg-muted" />
+                                <div className="h-4 w-32 rounded bg-muted" />
                             </CardContent>
                         </Card>
                     ))}
                 </div>
             ) : safeRewards.length === 0 ? (
-                <Card className="border-dashed border-2 bg-gray-50 flex flex-col items-center justify-center p-8 text-center">
-                    <Gift className="w-12 h-12 text-gray-300 mb-4" />
-                    <h3 className="text-sm font-medium text-gray-900">No active rewards</h3>
-                    <p className="mt-1 text-xs text-gray-500">Keep shopping at participating stores to unlock exclusive discounts.</p>
+                <Card className="flex flex-col items-center justify-center border-2 border-dashed border-border bg-muted/40 p-8 text-center">
+                    <Gift className="mb-4 h-12 w-12 text-muted-foreground" />
+                    <h3 className="text-sm font-medium text-foreground">No active rewards</h3>
+                    <p className="mt-1 text-xs text-muted-foreground">Keep shopping at participating stores to unlock exclusive discounts.</p>
                 </Card>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -63,21 +63,21 @@ export default function RewardsPage() {
                         const retailerName = reward.retailer?.name || reward.Retailer?.name || 'Store';
 
                         return (
-                        <Card key={reward.id} className="border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <Card key={reward.id} className="border-border shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
                             <CardHeader className="pb-2">
                                 <div className="flex items-center justify-between gap-3">
-                                    <CardTitle className="text-lg font-semibold text-gray-900">{Number(reward.discountPercentage ?? 0)}% OFF</CardTitle>
-                                    <div className="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center text-[#0F4716]">
+                                    <CardTitle className="text-lg font-semibold text-foreground">{Number(reward.discountPercentage ?? 0)}% OFF</CardTitle>
+                                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary text-primary">
                                         <Ticket className="w-5 h-5" />
                                     </div>
                                 </div>
                             </CardHeader>
                             <CardContent className="space-y-3">
-                                <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 text-xs font-semibold px-2.5 py-1 rounded-md">
+                                <div className="inline-flex items-center gap-2 rounded-md bg-muted px-2.5 py-1 text-xs font-semibold text-muted-foreground">
                                     <Store size={12} /> {retailerName}
                                 </div>
-                                <p className="text-sm text-gray-500">Use this reward on your next checkout at this store.</p>
-                                <div className="pt-2 border-t text-xs text-gray-500 font-medium">
+                                <p className="text-sm text-muted-foreground">Use this reward on your next checkout at this store.</p>
+                                <div className="border-t pt-2 text-xs font-medium text-muted-foreground">
                                     Expires {new Date(reward.expiresAt).toLocaleDateString()}
                                 </div>
                             </CardContent>

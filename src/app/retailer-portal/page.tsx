@@ -90,9 +90,9 @@ export default function RetailerPortalPage() {
     };
 
     return (
-        <div className="min-h-screen w-full bg-gray-50">
+        <div className="min-h-screen w-full bg-background text-foreground">
             {/* Top bar (mobile) */}
-            <div className="lg:hidden flex items-center gap-4 justify-start px-6 py-5 bg-[#0F4716]">
+            <div className="flex items-center justify-start gap-4 bg-primary-foreground px-6 py-5 shadow-sm lg:hidden">
                 <Image
                     src="/raseed_logo3.png"
                     alt="Raseed logo"
@@ -101,29 +101,29 @@ export default function RetailerPortalPage() {
                     className="h-10 w-10 rounded-md object-contain"
                     priority
                 />
-                <span className="text-xl font-black tracking-widest text-white uppercase"><a href="/">Raseed</a></span>
+                <span className="text-xl font-black tracking-widest uppercase text-primary"><a href="/">Raseed</a></span>
                 {/* <span className="text-xs font-semibold text-green-100 uppercase tracking-widest">Retailer Portal</span> */}
             </div>
 
             <div className="flex min-h-[calc(100vh-64px)] lg:min-h-screen">
                 {/* Left Side: Branding — desktop only */}
-                <div className="hidden lg:flex w-2/5 xl:w-1/2 bg-linear-to-br from-[#0F4716] via-[#165d1e] to-[#0a3310] text-white flex-col justify-between p-12 relative overflow-hidden shrink-0">
+                <div className="relative hidden w-2/5 shrink-0 flex-col justify-between overflow-hidden bg-linear-to-br from-primary via-[#165d1e] to-[#0a3310] p-12 text-primary-foreground lg:flex xl:w-1/2">
                     <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-white opacity-5 blur-3xl" />
-                    <div className="absolute bottom-10 left-10 -ml-20 -mb-20 w-80 h-80 rounded-full bg-green-300 opacity-10 blur-3xl" />
+                    <div className="absolute bottom-10 left-10 -ml-20 -mb-20 h-80 w-80 rounded-full bg-secondary opacity-10 blur-3xl" />
 
                     <div className="relative z-10">
-                        <span className="text-2xl font-black tracking-widest text-white uppercase opacity-90">Raseed</span>
+                            <span className="text-2xl font-black tracking-widest uppercase text-primary-foreground opacity-90">Raseed</span>
                     </div>
 
                     <div className="relative z-10 max-w-xl flex flex-col items-center text-center">
                     <img src="/raseed_logo3.png" alt="Raseed Logo" className="w-44 h-44 mb-4" />                        
                         <h1 className="text-5xl xl:text-6xl font-black tracking-tight leading-tight mb-6">
                             Retailer <br />
-                            <span className="text-transparent bg-clip-text bg-linear-to-r from-green-200 to-green-100">
+                            <span className="bg-linear-to-r from-secondary to-accent bg-clip-text text-transparent">
                                 Partner Portal
                             </span>
                         </h1>
-                        <p className="text-lg text-green-100 font-medium max-w-md">
+                        <p className="max-w-md text-lg font-medium text-primary-foreground/80">
                             Issue digital receipts, build loyalty programs, and gain insights on customer behavior.
                             This portal is for authorized retailers only.
                         </p>
@@ -135,16 +135,16 @@ export default function RetailerPortalPage() {
                 </div>
 
                 {/* Right Side: Form */}
-                <div className="flex-1 flex items-start lg:items-center justify-center p-5 sm:p-8 lg:p-12 xl:p-16 bg-gray-50 lg:bg-white overflow-y-auto">
+                <div className="flex flex-1 items-start justify-center overflow-y-auto bg-muted/40 p-5 sm:p-8 lg:items-center lg:bg-background lg:p-12 xl:p-16">
                     <div className="w-full max-w-md space-y-7 my-4 lg:my-0">
                         {/* Tab Switcher */}
-                        <div className="flex bg-gray-100 rounded-xl p-1 gap-1">
+                        <div className="flex gap-1 rounded-xl bg-muted p-1">
                             {tabs.map(({ key, label }) => (
                                 <button
                                     key={key}
                                     type="button"
                                     onClick={() => { setTab(key); resetAuthForm(); }}
-                                    className={`flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all ${tab === key ? 'bg-white shadow-sm text-[#0F4716]' : 'text-gray-500 hover:text-gray-700'}`}
+                                    className={`flex-1 rounded-lg py-2.5 text-xs font-bold transition-all sm:text-sm ${tab === key ? 'bg-card text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
                                 >
                                     {label}
                                 </button>
@@ -153,10 +153,10 @@ export default function RetailerPortalPage() {
 
                         {/* Heading */}
                         <div className="space-y-1">
-                            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
                                 {headings[tab].title}
                             </h2>
-                            <p className="text-sm sm:text-base text-gray-500 font-medium">
+                            <p className="text-sm sm:text-base font-medium text-muted-foreground">
                                 {headings[tab].subtitle}
                             </p>
                         </div>
@@ -165,36 +165,36 @@ export default function RetailerPortalPage() {
                         {tab === 'login' && (
                             <form onSubmit={handleLogin} className="space-y-5">
                                 <div className="space-y-2">
-                                    <Label htmlFor="login-email" className="font-semibold text-gray-700">Email</Label>
+                                    <Label htmlFor="login-email" className="font-semibold text-foreground">Email</Label>
                                     <Input
                                         id="login-email"
                                         type="email"
                                         placeholder="owner@store.com"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="h-12 px-4 text-base bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#0F4716] rounded-xl transition-all"
+                                        className="h-12 rounded-xl border-border bg-muted/40 px-4 text-base transition-all focus:bg-card focus:ring-2 focus:ring-primary/30"
                                         required
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="login-password" className="font-semibold text-gray-700">Password</Label>
+                                    <Label htmlFor="login-password" className="font-semibold text-foreground">Password</Label>
                                     <Input
                                         id="login-password"
                                         type="password"
                                         placeholder="••••••••"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="h-12 px-4 text-base bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#0F4716] rounded-xl transition-all"
+                                        className="h-12 rounded-xl border-border bg-muted/40 px-4 text-base transition-all focus:bg-card focus:ring-2 focus:ring-primary/30"
                                         required
                                     />
                                 </div>
                                 {error && (
-                                    <div className="text-sm font-medium text-red-500 bg-red-50 p-3 rounded-lg border border-red-100 text-center">
+                                    <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-center text-sm font-medium text-red-600">
                                         {error}
                                     </div>
                                 )}
                                 <Button
-                                    className="w-full h-12 text-base font-bold bg-[#0F4716] hover:bg-[#0a3310] text-white rounded-xl shadow-md hover:shadow-lg transition-all"
+                                    className="h-12 w-full rounded-xl bg-primary text-base font-bold text-primary-foreground shadow-md transition-all hover:bg-[#0a3310] hover:shadow-lg"
                                     type="submit"
                                     disabled={isLoading}
                                 >
@@ -206,47 +206,47 @@ export default function RetailerPortalPage() {
                         {tab === 'register' && (
                             <form onSubmit={handleRegister} className="space-y-5">
                                 <div className="space-y-2">
-                                    <Label htmlFor="reg-name" className="font-semibold text-gray-700">Store Name</Label>
+                                    <Label htmlFor="reg-name" className="font-semibold text-foreground">Store Name</Label>
                                     <Input
                                         id="reg-name"
                                         type="text"
                                         placeholder="SuperMart Karachi"
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        className="h-12 px-4 text-base bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#0F4716] rounded-xl transition-all"
+                                        className="h-12 rounded-xl border-border bg-muted/40 px-4 text-base transition-all focus:bg-card focus:ring-2 focus:ring-primary/30"
                                         required
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="reg-email" className="font-semibold text-gray-700">Verification Email</Label>
+                                    <Label htmlFor="reg-email" className="font-semibold text-foreground">Verification Email</Label>
                                     <Input
                                         id="reg-email"
                                         type="email"
                                         placeholder="owner@supermart.com"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="h-12 px-4 text-base bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#0F4716] rounded-xl transition-all"
+                                        className="h-12 rounded-xl border-border bg-muted/40 px-4 text-base transition-all focus:bg-card focus:ring-2 focus:ring-primary/30"
                                         required
                                     />
                                 </div>
                                 {error && (
-                                    <div className="text-sm font-medium text-red-500 bg-red-50 p-3 rounded-lg border border-red-100 text-center">
+                                    <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-center text-sm font-medium text-red-600">
                                         {error}
                                     </div>
                                 )}
                                 {successMessage && (
-                                    <div className="text-sm font-medium text-[#0F4716] bg-green-50 p-3 rounded-lg border border-green-200 text-center">
+                                    <div className="rounded-lg border border-green-200 bg-secondary p-3 text-center text-sm font-medium text-primary">
                                         {successMessage}
                                     </div>
                                 )}
                                 <Button
-                                    className="w-full h-12 text-base font-bold bg-[#0F4716] hover:bg-[#0a3310] text-white rounded-xl shadow-md hover:shadow-lg transition-all"
+                                    className="h-12 w-full rounded-xl bg-primary text-base font-bold text-primary-foreground shadow-md transition-all hover:bg-[#0a3310] hover:shadow-lg"
                                     type="submit"
                                     disabled={isLoading}
                                 >
                                     {isLoading ? 'Sending Verification...' : 'Create Retailer Account'}
                                 </Button>
-                                <p className="text-xs text-gray-500 text-center leading-5">
+                                <p className="text-center text-xs leading-5 text-muted-foreground">
                                     We’ll email a verification link first. Password setup happens after the email is confirmed.
                                 </p>
                             </form>

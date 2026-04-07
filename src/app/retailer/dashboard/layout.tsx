@@ -42,7 +42,7 @@ export default function RetailerDashboardLayout({ children }: { children: React.
 
     return (
         <QueryClientProvider client={queryClient}>
-            <div className="flex h-screen bg-gray-100 overflow-hidden">
+            <div className="flex h-screen overflow-hidden bg-background text-foreground">
                 {/* Mobile overlay */}
                 {sidebarOpen && (
                     <div
@@ -53,7 +53,7 @@ export default function RetailerDashboardLayout({ children }: { children: React.
 
                 {/* Sidebar */}
                 <aside className={`
-                    fixed inset-y-0 left-0 z-30 w-64 bg-white border-r shadow-sm flex flex-col
+                    fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-border bg-card shadow-sm
                     transform transition-transform duration-200 ease-in-out
                     lg:static lg:translate-x-0
                     ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -69,12 +69,12 @@ export default function RetailerDashboardLayout({ children }: { children: React.
                                 priority
                             />
                             <div>
-                                <h1 className="text-2xl font-bold text-[#0F4716]">Raseed</h1>
-                                <p className="text-sm text-gray-500">Retailer Dashboard</p>
+                                <h1 className="text-2xl font-bold text-primary"><a href="/retailer/dashboard">Raseed</a></h1>
+                                <p className="text-sm text-muted-foreground">Retailer Dashboard</p>
                             </div>
                         </div>
                         <button
-                            className="lg:hidden p-1 rounded-md text-gray-500 hover:bg-gray-100"
+                            className="rounded-md p-1 text-muted-foreground hover:bg-muted lg:hidden"
                             onClick={() => setSidebarOpen(false)}
                         >
                             <X size={20} />
@@ -89,7 +89,7 @@ export default function RetailerDashboardLayout({ children }: { children: React.
                                     key={item.name}
                                     href={item.href}
                                     onClick={() => setSidebarOpen(false)}
-                                    className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors ${isActive ? 'bg-[#0F4716] text-white' : 'text-gray-600 hover:bg-[#0F4716]/10 hover:text-[#0F4716]'}`}
+                                    className={`flex items-center gap-3 rounded-md px-3 py-2.5 transition-colors ${isActive ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-primary/10 hover:text-primary'}`}
                                 >
                                     <Icon size={20} />
                                     {item.name}
@@ -97,8 +97,8 @@ export default function RetailerDashboardLayout({ children }: { children: React.
                             );
                         })}
                     </nav>
-                    <div className="p-4 border-t">
-                        <button onClick={handleLogout} className="flex w-full items-center gap-3 px-3 py-2 text-gray-600 rounded-md hover:bg-red-50 hover:text-red-600 transition-colors">
+                    <div className="border-t border-border p-4">
+                        <button onClick={handleLogout} className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-red-50 hover:text-red-600">
                             <LogOut size={20} />
                             Logout
                         </button>
@@ -108,9 +108,9 @@ export default function RetailerDashboardLayout({ children }: { children: React.
                 {/* Main content */}
                 <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                     {/* Mobile top bar */}
-                    <header className="lg:hidden flex items-center gap-4 px-4 py-3 bg-white border-b shadow-sm">
+                    <header className="flex items-center gap-4 border-b border-border bg-card px-4 py-3 shadow-sm lg:hidden">
                         <button
-                            className="p-2 rounded-md text-gray-600 hover:bg-gray-100"
+                            className="rounded-md p-2 text-muted-foreground hover:bg-muted"
                             onClick={() => setSidebarOpen(true)}
                         >
                             <Menu size={22} />
@@ -123,7 +123,7 @@ export default function RetailerDashboardLayout({ children }: { children: React.
                             className="h-7 w-7 rounded-md object-contain"
                             priority
                         />
-                        <h1 className="text-lg font-bold text-[#0F4716]">Raseed</h1>
+                        <h1 className="text-lg font-bold text-primary"><a href="/retailer/dashboard">Raseed</a></h1>
                     </header>
                     <main className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">{children}</main>
                 </div>

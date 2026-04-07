@@ -19,7 +19,7 @@ export default function RetailerFeedbackPage() {
         enabled: !!retailerId,
     });
 
-    if (isLoading) return <div>Loading feedback...</div>;
+    if (isLoading) return <div className="text-muted-foreground">Loading feedback...</div>;
 
     const renderStars = (rating: number) => {
         return [1, 2, 3, 4, 5].map((star) => (
@@ -33,21 +33,21 @@ export default function RetailerFeedbackPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-3xl font-bold tracking-tight">Customer Feedback</h2>
-                <p className="text-gray-500">Monitor post-purchase ratings left by your customers.</p>
+                <h2 className="text-3xl font-bold tracking-tight text-foreground">Customer Feedback</h2>
+                <p className="text-muted-foreground">Monitor post-purchase ratings left by your customers.</p>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {feedbacks?.length === 0 ? (
-                    <p className="text-gray-500 col-span-3">No feedback received yet.</p>
+                    <p className="col-span-3 text-muted-foreground">No feedback received yet.</p>
                 ) : (
                     feedbacks?.map((fb: any) => (
                         <Card key={fb.id}>
                             <CardHeader className="space-y-2 pb-2">
-                                <div className="flex items-center justify-between gap-2">
+                                <div className="flex flex-col md:flex-row items-center justify-between gap-2">
                                     <CardTitle className="text-sm font-medium truncate">
                                         {fb.customer?.email || fb.Customer?.email || 'Anonymous'}
                                     </CardTitle>
-                                    <span className="text-xs font-semibold text-gray-500 whitespace-nowrap">
+                                    <span className="whitespace-nowrap text-xs font-semibold text-muted-foreground">
                                         {new Date(fb.createdAt).toLocaleDateString()}
                                     </span>
                                 </div>
@@ -55,12 +55,12 @@ export default function RetailerFeedbackPage() {
                                     <div className="flex items-center gap-1">
                                         {renderStars(fb.rating || 0)}
                                     </div>
-                                    <span className="text-sm font-bold text-gray-900">{(fb.rating || 0).toFixed(1)} / 5</span>
+                                    <span className="text-sm font-bold text-foreground">{(fb.rating || 0).toFixed(1)} / 5</span>
                                 </div>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-sm text-gray-600 min-h-12">{fb.comment || 'No comment provided.'}</p>
-                                <div className="mt-4 space-y-1 text-xs text-gray-500 font-mono">
+                                <p className="min-h-12 text-sm text-muted-foreground">{fb.comment || 'No comment provided.'}</p>
+                                <div className="mt-4 space-y-1 font-mono text-xs text-muted-foreground">
                                     <div>
                                         Receipt: {fb.receipt?.billNumber || fb.Receipt?.billNumber || 'N/A'}
                                     </div>

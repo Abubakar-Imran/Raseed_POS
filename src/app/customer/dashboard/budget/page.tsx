@@ -101,15 +101,15 @@ export default function CustomerBudgetPage() {
     return (
         <div className="space-y-5">
             <div>
-                <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Budget Tracker</h2>
-                <p className="text-sm text-gray-500 mt-1">Set a spending target and monitor your usage in real-time.</p>
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground">Budget Tracker</h2>
+                <p className="mt-1 text-sm text-muted-foreground">Set a spending target and monitor your usage in real-time.</p>
             </div>
 
-            <Card className="border-gray-200 shadow-sm overflow-hidden">
-                <div className="h-1 bg-linear-to-r from-[#0F4716] via-[#165d1e] to-[#0a3310]" />
+            <Card className="overflow-hidden border-border shadow-sm">
+                <div className="h-1 bg-linear-to-r from-primary via-[#165d1e] to-[#0a3310]" />
                 <CardHeader>
                     <CardTitle className="text-lg flex items-center gap-2">
-                        <Wallet className="w-5 h-5 text-[#0F4716]" />
+                        <Wallet className="w-5 h-5 text-primary" />
                         Manage Budget
                     </CardTitle>
                     <CardDescription>Choose your budget cycle and amount.</CardDescription>
@@ -121,7 +121,7 @@ export default function CustomerBudgetPage() {
                             <select
                                 value={budgetPeriod}
                                 onChange={(e) => setBudgetPeriod(e.target.value as 'daily' | 'weekly' | 'monthly')}
-                                className="w-full h-10 px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0F4716]/50"
+                                className="w-full h-10 rounded-md border border-border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/30"
                             >
                                 <option value="daily">Daily</option>
                                 <option value="weekly">Weekly</option>
@@ -143,43 +143,43 @@ export default function CustomerBudgetPage() {
                     </form>
 
                     {savedBudget !== null && (
-                        <div className="rounded-lg border border-green-100 bg-green-50/50 p-3 space-y-3">
+                        <div className="space-y-3 rounded-lg border border-border bg-secondary/40 p-3">
                             <div className="flex flex-wrap items-center justify-between gap-3">
-                                <p className="text-sm font-semibold text-gray-900 capitalize flex items-center gap-2">
-                                    <CalendarDays className="w-4 h-4 text-[#0F4716]" />
+                                <p className="flex items-center gap-2 text-sm font-semibold capitalize text-foreground">
+                                    <CalendarDays className="w-4 h-4 text-primary" />
                                     {budgetPeriod} budget
                                 </p>
                                 <Button type="button" variant="outline" className="h-8" onClick={handleClearBudget}>Clear</Button>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-                                <div className="rounded-md bg-white p-3 border border-green-100">
-                                    <p className="text-gray-500">Budget</p>
-                                    <p className="font-bold text-gray-900">Rs. {savedBudget.toFixed(2)}</p>
+                                <div className="rounded-md border border-border bg-card p-3">
+                                    <p className="text-muted-foreground">Budget</p>
+                                    <p className="font-bold text-foreground">Rs. {savedBudget.toFixed(2)}</p>
                                 </div>
-                                <div className="rounded-md bg-white p-3 border border-green-100">
-                                    <p className="text-gray-500">Spent</p>
-                                    <p className="font-bold text-gray-900">Rs. {currentSpending.toFixed(2)}</p>
+                                <div className="rounded-md border border-border bg-card p-3">
+                                    <p className="text-muted-foreground">Spent</p>
+                                    <p className="font-bold text-foreground">Rs. {currentSpending.toFixed(2)}</p>
                                 </div>
-                                <div className="rounded-md bg-white p-3 border border-green-100">
-                                    <p className="text-gray-500">Remaining</p>
-                                    <p className={`font-bold ${remainingBudget !== null && remainingBudget < 0 ? 'text-red-600' : 'text-[#0F4716]'}`}>
+                                <div className="rounded-md border border-border bg-card p-3">
+                                    <p className="text-muted-foreground">Remaining</p>
+                                    <p className={`font-bold ${remainingBudget !== null && remainingBudget < 0 ? 'text-red-600' : 'text-primary'}`}>
                                         Rs. {remainingBudget !== null ? remainingBudget.toFixed(2) : '0.00'}
                                     </p>
                                 </div>
                             </div>
                             <div>
-                                <div className="h-2 w-full bg-green-100 rounded-full overflow-hidden">
+                                <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                                     <div
-                                        className={`h-full ${budgetProgress >= 100 ? 'bg-red-500' : 'bg-[#0F4716]'}`}
+                                        className={`h-full ${budgetProgress >= 100 ? 'bg-red-500' : 'bg-primary'}`}
                                         style={{ width: `${budgetProgress}%` }}
                                     />
                                 </div>
-                                <p className="text-xs text-gray-500 mt-2">{budgetProgress.toFixed(1)}% of your {budgetPeriod} budget used</p>
+                                <p className="mt-2 text-xs text-muted-foreground">{budgetProgress.toFixed(1)}% of your {budgetPeriod} budget used</p>
                             </div>
                         </div>
                     )}
 
-                    {budgetMessage && <p className="text-xs font-medium text-gray-600">{budgetMessage}</p>}
+                    {budgetMessage && <p className="text-xs font-medium text-muted-foreground">{budgetMessage}</p>}
                 </CardContent>
             </Card>
         </div>

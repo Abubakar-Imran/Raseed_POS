@@ -70,8 +70,8 @@ export default function CustomerDashboardLayout({ children }: { children: React.
 
     return (
         <QueryClientProvider client={queryClient}>
-            <div className="flex flex-col min-h-screen bg-slate-50">
-                <header className="bg-white border-b px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 z-50 shadow-sm">
+            <div className="flex min-h-screen flex-col bg-background text-foreground">
+                <header className="sticky top-0 z-50 flex items-center justify-between border-b border-border bg-card/95 px-4 py-3 shadow-sm backdrop-blur sm:px-6">
                     <div className="flex items-center gap-5">
                         <Image
                         src="/raseed_logo3.png"
@@ -81,12 +81,12 @@ export default function CustomerDashboardLayout({ children }: { children: React.
                         className="h-10 w-10 rounded-md object-contain"
                         priority
                     />
-                        <h1 className="text-xl sm:text-2xl font-extrabold text-[#0F4716] tracking-tight"><a href="/customer/dashboard">Raseed</a></h1>
+                        <h1 className="text-xl font-extrabold tracking-tight text-primary sm:text-2xl"><a href="/customer/dashboard">Raseed</a></h1>
                         <nav className="hidden md:flex items-center gap-2">
                             {navItems.map((item) => {
                                 const isActive = pathname === item.href;
                                 return (
-                                    <Link key={item.name} href={item.href} className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${isActive ? 'bg-[#0F4716]/10 text-[#0F4716] font-semibold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}>
+                                    <Link key={item.name} href={item.href} className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all ${isActive ? 'bg-primary/10 text-primary font-semibold' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}`}>
                                         <item.icon size={18} />
                                         <span>{item.name}</span>
                                     </Link>
@@ -97,21 +97,21 @@ export default function CustomerDashboardLayout({ children }: { children: React.
 
                     <button
                         onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-                        className="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                        className="inline-flex items-center justify-center rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
                         aria-label="Toggle navigation menu"
                         aria-expanded={isMobileMenuOpen}
                     >
                         {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                     </button>
 
-                    <button onClick={handleLogout} className="hidden md:flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-red-600 transition-colors px-3 py-2 rounded-lg hover:bg-red-50">
+                    <button onClick={handleLogout} className="hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-red-50 hover:text-red-600 md:flex">
                         <LogOut size={18} />
                         <span className="hidden sm:inline">Logout</span>
                     </button>
                 </header>
 
                 {isMobileMenuOpen && (
-                    <nav className="md:hidden border-b bg-white px-4 py-3 space-y-1 shadow-sm">
+                    <nav className="space-y-1 border-b border-border bg-card px-4 py-3 shadow-sm md:hidden">
                         {navItems.map((item) => {
                             const Icon = item.icon;
                             const isActive = pathname === item.href;
@@ -120,7 +120,7 @@ export default function CustomerDashboardLayout({ children }: { children: React.
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${isActive ? 'bg-[#0F4716]/10 text-[#0F4716] font-semibold' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
+                                    className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all ${isActive ? 'bg-primary/10 text-primary font-semibold' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}`}
                                 >
                                     <Icon size={18} />
                                     <span>{item.name}</span>
@@ -129,7 +129,7 @@ export default function CustomerDashboardLayout({ children }: { children: React.
                         })}
                         <button
                             onClick={handleLogout}
-                            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
+                            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-red-50 hover:text-red-600"
                         >
                             <LogOut size={18} />
                             <span>Logout</span>
@@ -137,8 +137,8 @@ export default function CustomerDashboardLayout({ children }: { children: React.
                     </nav>
                 )}
 
-                <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-5 pb-6">
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 min-h-[72vh] p-4 sm:p-6">
+                <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-5 pb-6 sm:px-6">
+                    <div className="min-h-[72vh] rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
                         {children}
                     </div>
                 </main>

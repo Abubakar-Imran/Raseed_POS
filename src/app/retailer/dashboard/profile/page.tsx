@@ -82,16 +82,16 @@ export default function RetailerProfilePage() {
         }
     };
 
-    if (isFetching) return <div className="text-gray-500 p-4">Loading profile...</div>;
+    if (isFetching) return <div className="p-4 text-muted-foreground">Loading profile...</div>;
 
     return (
         <div className="space-y-5 w-full">
             <div>
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight flex items-center gap-3">
-                    <UserCog className="w-7 h-7 text-gray-600" />
+                    <UserCog className="w-7 h-7 text-muted-foreground" />
                     My Profile
                 </h2>
-                <p className="text-gray-500 mt-1">Update your business name or change your password.</p>
+                <p className="mt-1 text-muted-foreground">Update your business name or change your password.</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -103,27 +103,27 @@ export default function RetailerProfilePage() {
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="space-y-2">
-                                <Label htmlFor="profile-name" className="font-semibold text-gray-700">Business Name</Label>
+                                <Label htmlFor="profile-name" className="font-semibold text-foreground">Business Name</Label>
                                 <Input
                                     id="profile-name"
                                     type="text"
                                     value={profileName}
                                     onChange={(e) => setProfileName(e.target.value)}
                                     placeholder="Your business name"
-                                    className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-black rounded-xl"
+                                    className="h-11 rounded-xl border-border bg-card focus:ring-2 focus:ring-primary/30"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="profile-email" className="font-semibold text-gray-700">
+                                <Label htmlFor="profile-email" className="font-semibold text-foreground">
                                     Email
-                                    <span className="ml-2 text-xs font-normal text-gray-400">(read-only)</span>
+                                    <span className="ml-2 text-xs font-normal text-muted-foreground">(read-only)</span>
                                 </Label>
                                 <Input
                                     id="profile-email"
                                     type="email"
                                     value={profileEmail}
                                     readOnly
-                                    className="h-11 bg-gray-100 border-gray-200 rounded-xl text-gray-500 cursor-not-allowed"
+                                    className="h-11 cursor-not-allowed rounded-xl border-border bg-muted text-muted-foreground"
                                 />
                             </div>
                         </CardContent>
@@ -136,26 +136,26 @@ export default function RetailerProfilePage() {
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="space-y-2">
-                                <Label htmlFor="new-password" className="font-semibold text-gray-700">New Password</Label>
+                                <Label htmlFor="new-password" className="font-semibold text-foreground">New Password</Label>
                                 <Input
                                     id="new-password"
                                     type="password"
                                     value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     placeholder="Leave blank to keep current"
-                                    className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-black rounded-xl"
+                                    className="h-11 rounded-xl border-border bg-card focus:ring-2 focus:ring-primary/30"
                                     minLength={newPassword ? 6 : undefined}
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="confirm-password" className="font-semibold text-gray-700">Confirm New Password</Label>
+                                <Label htmlFor="confirm-password" className="font-semibold text-foreground">Confirm New Password</Label>
                                 <Input
                                     id="confirm-password"
                                     type="password"
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     placeholder="Repeat new password"
-                                    className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-black rounded-xl"
+                                    className="h-11 rounded-xl border-border bg-card focus:ring-2 focus:ring-primary/30"
                                 />
                             </div>
                         </CardContent>
@@ -163,11 +163,11 @@ export default function RetailerProfilePage() {
                 </div>
 
                 <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 items-end">
-                    <Card className="border-gray-300 bg-gray-50 xl:col-span-2">
+                    <Card className="border-border bg-secondary/30 xl:col-span-2">
                         <CardContent className="pt-5 space-y-2">
-                            <Label htmlFor="current-password" className="font-semibold text-gray-700">
+                            <Label htmlFor="current-password" className="font-semibold text-foreground">
                                 Current Password
-                                <span className="ml-2 text-xs font-normal text-gray-400">(required to save any changes)</span>
+                                <span className="ml-2 text-xs font-normal text-muted-foreground">(required to save any changes)</span>
                             </Label>
                             <Input
                                 id="current-password"
@@ -175,7 +175,7 @@ export default function RetailerProfilePage() {
                                 value={currentPassword}
                                 onChange={(e) => setCurrentPassword(e.target.value)}
                                 placeholder="Enter your current password"
-                                className="h-11 bg-white border-gray-200 focus:ring-2 focus:ring-black rounded-xl"
+                                className="h-11 rounded-xl border-border bg-card focus:ring-2 focus:ring-primary/30"
                                 required
                             />
                         </CardContent>
@@ -185,7 +185,7 @@ export default function RetailerProfilePage() {
                         <Button
                             type="submit"
                             disabled={isLoading}
-                            className="h-11 w-full xl:w-auto px-8 text-base font-bold bg-black hover:bg-gray-800 text-white rounded-xl"
+                            className="h-11 w-full rounded-xl bg-primary px-8 text-base font-bold text-primary-foreground hover:bg-[#0a3310] xl:w-auto"
                         >
                             {isLoading ? 'Saving...' : 'Save Changes'}
                         </Button>
@@ -193,12 +193,12 @@ export default function RetailerProfilePage() {
                 </div>
 
                 {error && (
-                    <div className="text-sm font-medium text-red-500 bg-red-50 p-3 rounded-lg border border-red-100">
+                    <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm font-medium text-red-600">
                         {error}
                     </div>
                 )}
                 {success && (
-                    <div className="text-sm font-medium text-[#0F4716] bg-green-50 p-3 rounded-lg border border-green-200">
+                    <div className="rounded-lg border border-green-200 bg-secondary p-3 text-sm font-medium text-primary">
                         {success}
                     </div>
                 )}

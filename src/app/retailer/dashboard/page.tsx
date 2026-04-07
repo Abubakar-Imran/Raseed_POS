@@ -112,8 +112,8 @@ export default function RetailerDashboardOverview() {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-3xl font-bold tracking-tight">Overview - {retailer?.name || 'Your Shop'}</h2>
-                <p className="text-gray-500">View your overall store performance and metrics.</p>
+                <h2 className="text-3xl font-bold tracking-tight text-foreground">Overview - {retailer?.name || 'Your Shop'}</h2>
+                <p className="text-muted-foreground">View your overall store performance and metrics.</p>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 {kpis.map((kpi) => {
@@ -122,11 +122,11 @@ export default function RetailerDashboardOverview() {
                         <Card key={kpi.title}>
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                                <Icon className="h-4 w-4 text-gray-500" />
+                                <Icon className="h-4 w-4 text-muted-foreground" />
                             </CardHeader>
                             <CardContent>
                                 <div className="text-2xl font-bold">{kpi.value}</div>
-                                <p className="text-xs text-gray-500 mt-1">{kpi.description}</p>
+                                <p className="mt-1 text-xs text-muted-foreground">{kpi.description}</p>
                             </CardContent>
                         </Card>
                     );
@@ -140,7 +140,7 @@ export default function RetailerDashboardOverview() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{receiptsToday.length}</div>
-                        <p className="text-xs text-gray-500 mt-1">Issued since midnight</p>
+                        <p className="mt-1 text-xs text-muted-foreground">Issued since midnight</p>
                     </CardContent>
                 </Card>
 
@@ -150,7 +150,7 @@ export default function RetailerDashboardOverview() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">Rs. {revenueToday.toFixed(2)}</div>
-                        <p className="text-xs text-gray-500 mt-1">Today&apos;s sales total</p>
+                        <p className="mt-1 text-xs text-muted-foreground">Today&apos;s sales total</p>
                     </CardContent>
                 </Card>
 
@@ -160,7 +160,7 @@ export default function RetailerDashboardOverview() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{uniqueCustomersToday}</div>
-                        <p className="text-xs text-gray-500 mt-1">Distinct customers served</p>
+                        <p className="mt-1 text-xs text-muted-foreground">Distinct customers served</p>
                     </CardContent>
                 </Card>
             </div>
@@ -175,35 +175,35 @@ export default function RetailerDashboardOverview() {
                     </CardHeader>
                     <CardContent className="space-y-2">
                         <div className="text-xl font-bold">Rs. {current7dRevenue.toFixed(2)}</div>
-                        <p className="text-sm text-gray-500">Current 7 days</p>
+                        <p className="text-sm text-muted-foreground">Current 7 days</p>
                         <p className={`text-sm font-semibold ${trendDirection === 'up' ? 'text-green-600' : 'text-red-600'}`}>
                             {trendDirection === 'up' ? '+' : ''}Rs. {trendDelta.toFixed(2)} vs previous 7 days
                         </p>
-                        <p className="text-xs text-gray-500">Previous 7-day revenue: Rs. {prev7dRevenue.toFixed(2)}</p>
+                        <p className="text-xs text-muted-foreground">Previous 7-day revenue: Rs. {prev7dRevenue.toFixed(2)}</p>
                     </CardContent>
                 </Card>
 
                 <Card className="xl:col-span-2">
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-base">Recent Receipts</CardTitle>
-                        <Link href="/retailer/dashboard/receipts" className="text-xs font-semibold text-gray-600 hover:text-gray-900">
+                        <Link href="/retailer/dashboard/receipts" className="text-xs font-semibold text-muted-foreground hover:text-foreground">
                             View all
                         </Link>
                     </CardHeader>
                     <CardContent>
                         {recentReceipts.length === 0 ? (
-                            <p className="text-sm text-gray-500">No recent receipts yet.</p>
+                            <p className="text-sm text-muted-foreground">No recent receipts yet.</p>
                         ) : (
                             <div className="space-y-3">
                                 {recentReceipts.map((receipt: any) => (
                                     <div key={receipt.id} className="flex items-center justify-between gap-3 p-3 rounded-md border">
                                         <div className="min-w-0">
-                                            <p className="text-sm font-semibold text-gray-900 truncate">{receipt.billNumber}</p>
-                                            <p className="text-xs text-gray-500 truncate">{receipt.customer?.email || receipt.Customer?.email || 'Unknown customer'}</p>
+                                            <p className="truncate text-sm font-semibold text-foreground">{receipt.billNumber}</p>
+                                            <p className="truncate text-xs text-muted-foreground">{receipt.customer?.email || receipt.Customer?.email || 'Unknown customer'}</p>
                                         </div>
                                         <div className="text-right whitespace-nowrap">
-                                            <p className="text-sm font-bold text-gray-900">Rs. {(receipt.totalAmount ?? 0).toFixed(2)}</p>
-                                            <p className="text-xs text-gray-500">{new Date(receipt.createdAt).toLocaleDateString()}</p>
+                                            <p className="text-sm font-bold text-foreground">Rs. {(receipt.totalAmount ?? 0).toFixed(2)}</p>
+                                            <p className="text-xs text-muted-foreground">{new Date(receipt.createdAt).toLocaleDateString()}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -219,28 +219,28 @@ export default function RetailerDashboardOverview() {
                         <Trophy className="h-4 w-4" />
                         Top Loyal Customers
                     </CardTitle>
-                    <Link href="/retailer/dashboard/loyalty" className="text-xs font-semibold text-gray-600 hover:text-gray-900">
+                        <Link href="/retailer/dashboard/loyalty" className="text-xs font-semibold text-muted-foreground hover:text-foreground">
                         Loyalty rules
                     </Link>
                 </CardHeader>
                 <CardContent>
                     {topLoyalCustomers.length === 0 ? (
-                        <p className="text-sm text-gray-500">No customer purchase history yet.</p>
+                            <p className="text-sm text-muted-foreground">No customer purchase history yet.</p>
                     ) : (
                         <div className="space-y-3">
                             {topLoyalCustomers.map((customer: any, index: number) => (
                                 <div key={customer.key} className="flex items-center justify-between gap-3 rounded-md border p-3">
                                     <div className="min-w-0">
-                                        <p className="text-sm font-semibold text-gray-900 truncate">
+                                            <p className="truncate text-sm font-semibold text-foreground">
                                             #{index + 1} {customer.email || customer.customerId || 'Unknown customer'}
                                         </p>
-                                        <p className="text-xs text-gray-500">
+                                            <p className="text-xs text-muted-foreground">
                                             {customer.visits} purchase{customer.visits === 1 ? '' : 's'}
                                         </p>
                                     </div>
                                     <div className="text-right whitespace-nowrap">
-                                        <p className="text-sm font-bold text-gray-900">Rs. {customer.totalSpent.toFixed(2)}</p>
-                                        <p className="text-xs text-gray-500">Last: {new Date(customer.lastPurchaseAt).toLocaleDateString()}</p>
+                                            <p className="text-sm font-bold text-foreground">Rs. {customer.totalSpent.toFixed(2)}</p>
+                                            <p className="text-xs text-muted-foreground">Last: {new Date(customer.lastPurchaseAt).toLocaleDateString()}</p>
                                     </div>
                                 </div>
                             ))}
