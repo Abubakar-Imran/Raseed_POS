@@ -112,7 +112,15 @@ export default function RetailerPortalPage() {
                     <div className="absolute bottom-10 left-10 -ml-20 -mb-20 h-80 w-80 rounded-full bg-secondary opacity-10 blur-3xl" />
 
                     <div className="relative z-10">
-                            <span className="text-2xl font-black tracking-widest uppercase text-primary-foreground opacity-90">Raseed</span>
+                        <Image
+                            src="/raseed_logo3.png"
+                            alt="Raseed logo"
+                            width={20}
+                            height={20}
+                            className="h-10 w-10 rounded-md object-contain"
+                            priority
+                        />
+                        <span className="text-2xl font-black tracking-widest uppercase text-primary-foreground opacity-90"><a href="/">Raseed</a></span>
                     </div>
 
                     <div className="relative z-10 max-w-xl flex flex-col items-center text-center">

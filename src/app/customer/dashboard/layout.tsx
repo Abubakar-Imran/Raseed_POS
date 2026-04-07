@@ -74,13 +74,13 @@ export default function CustomerDashboardLayout({ children }: { children: React.
                 <header className="sticky top-0 z-50 flex items-center justify-between border-b border-border bg-card/95 px-4 py-3 shadow-sm backdrop-blur sm:px-6">
                     <div className="flex items-center gap-5">
                         <Image
-                        src="/raseed_logo3.png"
-                        alt="Raseed logo"
-                        width={20}
-                        height={20}
-                        className="h-10 w-10 rounded-md object-contain"
-                        priority
-                    />
+                            src="/raseed_logo3.png"
+                            alt="Raseed logo"
+                            width={20}
+                            height={20}
+                            className="h-10 w-10 rounded-md object-contain"
+                            priority
+                        />
                         <h1 className="text-xl font-extrabold tracking-tight text-primary sm:text-2xl"><a href="/customer/dashboard">Raseed</a></h1>
                         <nav className="hidden md:flex items-center gap-2">
                             {navItems.map((item) => {
